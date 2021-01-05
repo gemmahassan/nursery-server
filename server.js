@@ -2,9 +2,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const corsWhitelist = ['http://localhost:8081', 'https://msc-nursery-app.herokuapp.com']
+
 const corsOptions = {
-  origin: 'http://localhost:8081'
+  origin: function (origin, callback) {
+    if (corsWhitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 };
+
 
 const app = express();
 
