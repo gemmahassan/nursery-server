@@ -9,3 +9,19 @@ exports.getAllNurseries = (req, res) => {
     else res.send(data);
   });
 };
+
+exports.getAllChildren = (req, res) => {
+  Nursery.getAllChildren(req.params.nurseryId, (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Not found with nursery ID ${req.params.nurseryId}`
+        });
+      } else {
+        res.status(500).send({
+          message: `Error retrieving Children with nursery ID ${req.params.nurseryId}`
+        });
+      }
+    } else res.send(data);
+  });
+};

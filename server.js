@@ -14,7 +14,6 @@ const corsOptions = {
   }
 };
 
-
 const app = express();
 
 app.use(cors(corsOptions));
@@ -32,6 +31,7 @@ app.get('/', (req, res) => {
 
 require('./routes/staff-routes')(app);
 require('./routes/nursery-routes')(app);
+require('./routes/child-routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

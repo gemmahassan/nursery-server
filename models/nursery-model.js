@@ -17,6 +17,20 @@ Nursery.create = (newNursery, result) => {
   });
 };
 
+Nursery.getAllChildren = (nurseryId, result) => {
+  console.log('nursery-model');
+  sql.query(`SELECT * FROM children WHERE nursery_id = ${nurseryId}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("Retrieved children: ", res) ;
+    result(null, res);
+  });
+};
+
 Nursery.getAll = result => {
   sql.query("SELECT * FROM nurseries", (err, res) => {
     if (err) {
