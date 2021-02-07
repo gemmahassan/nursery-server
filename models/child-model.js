@@ -52,8 +52,22 @@ Child.findByCarerId = (carerId, result) => {
   });
 };
 
-Child.findJournal = (childId, result) => {
-  sql.query(`SELECT * FROM journal WHERE child_id = ${childId}`, (err, res) => {
+Child.findJournal = (childId, date, result) => {
+  console.log('!!!', date);
+  sql.query(
+    `SELECT 
+       journal.image, 
+       journal.text, 
+       journal.timestamp,
+       journal.type_id, 
+       journal_types.type
+     FROM journal
+     INNER JOIN journal_types 
+        ON journal.type_id=journal_types.id
+     WHERE journal.child_id = ${childId}
+     AND DATE(journal.timestamp) = '${date}'
+     ORDER BY journal.timestamp DESC`,
+    (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -61,8 +75,11 @@ Child.findJournal = (childId, result) => {
     }
 
     if (res.length) {
-      console.log('found journal: ', res);
+      console.log('findJournal: ', res);
       result(null, res);
+      return;
+    } else {
+      result(null, []);
       return;
     }
   });

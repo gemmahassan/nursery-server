@@ -33,7 +33,7 @@ exports.findChildrenByCarerId = (req, res) => {
 };
 
 exports.findJournal = (req, res) => {
-  Child.findJournal(req.params.childId, (err, data) => {
+  Child.findJournal(req.params.childId, req.params.date, (err, data) => {
     if (err) {
       if (err.kind === 'not_found') {
         res.status(404).send({
