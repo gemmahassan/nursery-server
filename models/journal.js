@@ -21,7 +21,7 @@ Journal.create = (newJournal, result) => {
   });
 };
 
-Journal.updateEntry = (journalId, journal, result) => {
+Journal.update = (journalId, journal, result) => {
   sql.query(
     "UPDATE journal " +
     "SET child_id = ?," +
@@ -47,5 +47,23 @@ Journal.updateEntry = (journalId, journal, result) => {
     }
   );
 }
+
+Journal.remove = (id, result) => {
+  sql.query("DELETE FROM journal WHERE id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    if (res.affectedRows == 0) {
+      result({kind: "not_found"}, null);
+      return;
+    }
+
+    console.log(`deleted journal with ID: ${id}`);
+    result(null, res);
+  });
+};
 
 module.exports = Journal;
