@@ -1,4 +1,4 @@
-const Child = require('../models/child-model');
+const Child = require('../models/child');
 
 exports.findChildrenByNurseryId = (req, res) => {
   Child.findByNurseryId(req.params.nurseryId, (err, data) => {
