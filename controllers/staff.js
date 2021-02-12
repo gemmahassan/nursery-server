@@ -1,4 +1,4 @@
-const Staff = require('../models/staff-model');
+const Staff = require('../models/staff');
 
 exports.findStaffByNurseryId = (req, res) => {
   Staff.findByNurseryId(req.params.nurseryId, (err, data) => {

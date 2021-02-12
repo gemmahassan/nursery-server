@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const corsWhitelist = ['http://localhost:8081', 'https://msc-nursery-app.herokuapp.com']
+const corsWhitelist = ['http://localhost:8081', 'https://msc-nursery-app.herokuapp.com', 'http://localhost:8080'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -29,9 +29,11 @@ app.get('/', (req, res) => {
   res.json({message: 'Welcome to nursery app'});
 });
 
-require('./routes/staff-routes')(app);
-require('./routes/nursery-routes')(app);
-require('./routes/child-routes')(app);
+require('./routes/staff')(app);
+require('./routes/nursery')(app);
+require('./routes/child')(app);
+require('./routes/journal')(app);
+require('./routes/journal-type')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

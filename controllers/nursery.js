@@ -1,4 +1,4 @@
-const Nursery = require('../models/nursery-model');
+const Nursery = require('../models/nursery');
 
 exports.getAllNurseries = (req, res) => {
   Nursery.getAll( (err, data) => {
