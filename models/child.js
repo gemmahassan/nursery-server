@@ -53,7 +53,6 @@ Child.findByCarerId = (carerId, result) => {
 };
 
 Child.findJournal = (childId, date, result) => {
-  console.log('!!!', date);
   sql.query(
     `SELECT 
        journal.image, 

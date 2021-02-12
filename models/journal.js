@@ -21,17 +21,31 @@ Journal.create = (newJournal, result) => {
   });
 };
 
-Journal.getTypes = result => {
-  sql.query("SELECT * FROM journal_types", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
+Journal.updateEntry = (journalId, journal, result) => {
+  sql.query(
+    "UPDATE journal " +
+    "SET child_id = ?," +
+    "type_id = ?," +
+    "image = ?," +
+    "text = ?" +
+    "WHERE id = ?",
+    [journal.child_id, journal.type_id, journal.image, journal.text, journalId],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
 
-    console.log("Journal types: ", res);
-    result(null, res);
-  });
-};
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      console.log("updated journal: ", {id: journalId, ...journal});
+      result(null, {id: journalId, ...journal});
+    }
+  );
+}
 
 module.exports = Journal;
