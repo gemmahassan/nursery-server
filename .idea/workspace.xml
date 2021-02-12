@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e482d3-82cc-41ed-8a17-459f879996c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/journal-type.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/journal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/journal-type.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/journal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/journal-type.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/journal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/child-controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/child.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/nursery-controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/nursery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/staff-controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/staff.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/child-model.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/child.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/nursery-model.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/nursery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/staff-model.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/staff.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/child-routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/child.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/nursery-routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/nursery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/staff-routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/staff.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/journal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/child.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/journal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/journal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +97,7 @@
       <workItem from="1612735782824" duration="2795000" />
       <workItem from="1612903662736" duration="555000" />
       <workItem from="1612950809553" duration="199000" />
-      <workItem from="1612952529297" duration="9327000" />
+      <workItem from="1612952529297" duration="13742000" />
     </task>
     <task id="LOCAL-00001" summary="[MP-27] Change Backend to use mySQL instead of MongoDB">
       <created>1609864909220</created>
@@ -152,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612736947371</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="MP-52 Add Insert query for Journal">
+      <created>1613163031872</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1613163031875</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
