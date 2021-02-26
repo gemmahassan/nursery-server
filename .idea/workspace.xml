@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="88e482d3-82cc-41ed-8a17-459f879996c4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/journal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/child.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/journal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/journal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,19 +58,6 @@
       <recent name="$PROJECT_DIR$/routes" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -95,7 +83,8 @@
       <workItem from="1612735782824" duration="2795000" />
       <workItem from="1612903662736" duration="555000" />
       <workItem from="1612950809553" duration="199000" />
-      <workItem from="1612952529297" duration="14780000" />
+      <workItem from="1612952529297" duration="17363000" />
+      <workItem from="1614331156667" duration="3509000" />
     </task>
     <task id="LOCAL-00001" summary="[MP-27] Change Backend to use mySQL instead of MongoDB">
       <created>1609864909220</created>
@@ -153,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613168251887</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="MP-55 Add delete query for Journal (backend)">
+      <created>1613169326359</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1613169326360</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +176,7 @@
     <MESSAGE value="update port" />
     <MESSAGE value="MP-52 Add Insert query for Journal" />
     <MESSAGE value="MP-54 Add Update query for Journal (backend)" />
-    <option name="LAST_COMMIT_MESSAGE" value="MP-54 Add Update query for Journal (backend)" />
+    <MESSAGE value="MP-55 Add delete query for Journal (backend)" />
+    <option name="LAST_COMMIT_MESSAGE" value="MP-55 Add delete query for Journal (backend)" />
   </component>
 </project>
