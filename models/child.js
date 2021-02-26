@@ -55,6 +55,7 @@ Child.findByCarerId = (carerId, result) => {
 Child.findJournal = (childId, date, result) => {
   sql.query(
     `SELECT 
+       journal.id,
        journal.image, 
        journal.text, 
        journal.timestamp,

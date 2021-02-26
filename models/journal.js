@@ -1,6 +1,7 @@
 const sql = require('./db');
 
 const Journal = function(journal) {
+  this.id = journal.id;
   this.type_id = journal.type_id;
   this.image = journal.image;
   this.text = journal.text;
