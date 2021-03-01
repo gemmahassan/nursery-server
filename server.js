@@ -16,7 +16,7 @@ const corsOptions = {
 
 const app = express();
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // parse requests of content-type application/json
 app.use(bodyParser.json());
@@ -34,6 +34,7 @@ require('./routes/nursery')(app);
 require('./routes/child')(app);
 require('./routes/journal')(app);
 require('./routes/journal-type')(app);
+require('./routes/user')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
