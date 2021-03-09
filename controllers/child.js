@@ -1,5 +1,44 @@
 const Child = require('../models/child');
 
+exports.createChild = (req, res) => {
+  const {role} = req.user;
+
+  if (role !== 'admin') {
+    return res.sendStatus(403);
+  }
+
+  const child = new Child({
+    first_name: req.body.first_name,
+    surname: req.body.surname,
+    carer_id: req.body.carer_id,
+  });
+
+  Child.create(child,(err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "An error occurred while creating the child."
+      });
+    else res.send(data);
+  });
+};
+
+exports.findAllChildren = (req, res) => {
+  Child.findAll((err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: 'None found'
+        });
+      } else {
+        res.status(500).send({
+          message: 'Error retrieving children'
+        });
+      }
+    } else res.send(data);
+  });
+};
+
 exports.findChildrenByNurseryId = (req, res) => {
   Child.findByNurseryId(req.params.nurseryId, (err, data) => {
     if (err) {

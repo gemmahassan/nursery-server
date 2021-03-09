@@ -1,10 +1,8 @@
 const sql = require('./db');
 
 const Child = function(child) {
-  this.firstName = child.firstName;
-  this.lastName = child.lastName;
-  this.nurseryId = child.nurseryId
-  this.childId = child.childId;
+  this.first_name = child.first_name;
+  this.surname = child.surname;
 };
 
 Child.create = (newChild, result) => {
@@ -17,6 +15,22 @@ Child.create = (newChild, result) => {
 
     console.log("Created child: ", { id: res.insertId, ...newChild });
     result(null, { id: res.insertId, ...newChild });
+  });
+};
+
+Child.findAll = result => {
+  sql.query('SELECT * FROM children', (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found all children", res);
+      result(null, res);
+      return;
+    }
   });
 };
 

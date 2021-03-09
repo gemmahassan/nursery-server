@@ -1,6 +1,11 @@
 const Journal = require('../models/journal');
 
 exports.addEntry = (req, res) => {
+  // only admin and staff users have permission to add a journal entry
+  if (role !== 'admin' || 'staff') {
+    return res.sendStatus(403);
+  }
+
   // Validate request
   if (!req.body) {
     res.status(400).send({
@@ -29,6 +34,11 @@ exports.addEntry = (req, res) => {
 };
 
 exports.update = (req, res) => {
+  // only admin and staff users have permission to update a journal entry
+  if (role !== 'admin' || 'staff') {
+    return res.sendStatus(403);
+  }
+
   // Validate request
   if (!req.body) {
     res.status(400).send({
@@ -54,6 +64,11 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
+  // only admin and staff users have permission to delete a journal entry
+  if (role !== 'admin' || 'staff') {
+    return res.sendStatus(403);
+  }
+
   Journal.remove(req.params.journalId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {

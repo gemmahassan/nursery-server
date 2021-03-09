@@ -1,30 +1,23 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/auth.js");
-const db = require("../models");
-const User = db.user;
+const { secret } = require("../config/auth");
 
-verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
+const authJwt = (req, res, next) => {
+  const authHeader = req.headers.authorization;
 
-  if (!token) {
-    return res.status(403).send({
-      message: "No token provided!"
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
+
+    jwt.verify(token, secret, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      req.user = user;
+      next();
     });
+  } else {
+    res.sendStatus(401);
   }
-
-  jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) {
-      return res.status(401).send({
-        message: "Unauthorised!"
-      });
-    }
-    req.userId = decoded.id;
-    next();
-  });
-};
-
-const authJwt = {
-  verifyToken: verifyToken,
 };
 
 module.exports = authJwt;
