@@ -51,7 +51,11 @@ User.findByUsernameAndPassword = (password, username, result) => {
         console.log('found user: ', res[0]);
         result(null, res[0]);
         return;
+      } else {
+        console.log('no user found');
+        return;
       }
     });
 };
+
 module.exports = User;
