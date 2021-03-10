@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e482d3-82cc-41ed-8a17-459f879996c4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/auth.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/child.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/journal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/middleware/authJwt.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authJwt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/child.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/verifySignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/verifySignUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/child.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/journal.js" afterDir="false" />
@@ -67,6 +64,21 @@
       <recent name="$PROJECT_DIR$/routes" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -94,7 +106,7 @@
       <workItem from="1612950809553" duration="199000" />
       <workItem from="1612952529297" duration="17363000" />
       <workItem from="1614331156667" duration="3509000" />
-      <workItem from="1614768477593" duration="6121000" />
+      <workItem from="1614768477593" duration="14844000" />
     </task>
     <task id="LOCAL-00001" summary="[MP-27] Change Backend to use mySQL instead of MongoDB">
       <created>1609864909220</created>

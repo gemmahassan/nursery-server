@@ -18,6 +18,26 @@ User.create = (newUser, result) => {
   });
 };
 
+User.findById = (userId, result) => {
+  console.log("model query");
+  console.log(userId);
+  sql.query(
+    `SELECT * FROM users 
+    WHERE users.id = '${userId}'`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.length) {
+        console.log('found user: ', res[0]);
+        result(null, res[0]);
+        return;
+      }
+    });
+};
+
 User.findByUsername = (username, result) => {
   sql.query(`SELECT * FROM users WHERE username = ${username}`, (err, res) => {
     if (err) {
