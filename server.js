@@ -35,6 +35,7 @@ require('./routes/child')(app);
 require('./routes/journal')(app);
 require('./routes/journal-type')(app);
 require('./routes/user')(app);
+require('./routes/auth')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

@@ -1,7 +1,11 @@
-module.exports = app => {
-  const user = require('../controllers/user');
+const { authJwt } = require("../middleware");
+const user = require('../controllers/user');
 
-  app.post("/user/token", user.token);
-  app.post("/user/login", user.login);
-  app.post("/user/logout", user.logout);
+module.exports = app => {
+  app.get("/all", user.allAccess);
+  app.get("/admin", [authJwt.verifyToken, authJwt.isAdmin], user.adminDashBoard);
+  app.get("/staff", [authJwt.verifyToken, authJwt.isStaff], user.staffDashBoard);
+  app.get("/carer", [authJwt.verifyToken, authJwt.isCarer], user.staffDashBoard);
+
+
 };
