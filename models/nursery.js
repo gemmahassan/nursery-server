@@ -18,7 +18,7 @@ Nursery.create = (newNursery, result) => {
 };
 
 Nursery.getAllChildren = (nurseryId, result) => {
-  console.log('nursery-model');
+  console.log('nursery-model: ', nurseryId);
   sql.query(`SELECT * FROM children WHERE nursery_id = ${nurseryId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -45,7 +45,7 @@ Nursery.getAll = result => {
 };
 
 Nursery.findById = (nurseryId, result) => {
-  sql.query(`SELECT * FROM nurseries WHERE nursery_id = ${nurseryId}`, (err, res) => {
+  sql.query(`SELECT * FROM nurseries WHERE id = ${nurseryId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

@@ -46,6 +46,7 @@ exports.login = (req, res) => {
             userId: user.id,
             username: user.username,
             role: user.role,
+            nurseryId: user.nursery_id,
           },
           secret,
           {expiresIn: '60m'});
@@ -61,6 +62,9 @@ exports.login = (req, res) => {
           accessToken,
           username,
           refreshToken,
+          userId: user.id,
+          role: user.role,
+          nurseryId: user.nursery_id,
         });
         // res.send({accessToken});
       } else {
@@ -78,7 +82,7 @@ exports.logout = (req, res) => {
 };
 
 exports.token = (req, res) => {
-  const { token } = req.body;
+  const {token} = req.body;
 
   if (!token) {
     return res.sendStatus(401);
@@ -93,7 +97,7 @@ exports.token = (req, res) => {
       return res.sendStatus(403);
     }
 
-    const accessToken = jwt.sign({ username: user.username, role: user.role }, accessTokenSecret, { expiresIn: '20m' });
+    const accessToken = jwt.sign({username: user.username, role: user.role}, accessTokenSecret, {expiresIn: '20m'});
 
     res.json({
       accessToken

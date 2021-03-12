@@ -56,11 +56,16 @@ User.findByUsername = (username, result) => {
 
 User.findByUsernameAndPassword = (password, username, result) => {
   sql.query(
-    `SELECT * 
-    FROM users 
-    INNER JOIN user_roles
+    `SELECT 
+      users.id,
+      users.username,
+      users.user_role_id,
+      users.nursery_id,
+      user_roles.role
+     FROM users 
+     INNER JOIN user_roles
        ON users.user_role_id = user_roles.id
-    WHERE users.username = '${username}' AND users.password = '${password}'`, (err, res) => {
+     WHERE users.username = '${username}' AND users.password = '${password}'`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);

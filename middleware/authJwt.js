@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
 const {secret} = require("../config/auth");
 
 verifyToken = (req, res, next) => {
@@ -12,8 +11,9 @@ verifyToken = (req, res, next) => {
         });
       }
 
-      // req.userId = decoded.id;
+      req.userId = decoded.id;
       req.role = decoded.role;
+      req.nurseryId = decoded.nurseryId;
       next();
     });
   } else {

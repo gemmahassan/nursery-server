@@ -56,15 +56,15 @@ exports.findChildrenByNurseryId = (req, res) => {
 };
 
 exports.findChildrenByCarerId = (req, res) => {
-  Child.findByCarerId(req.params.nurseryId, (err, data) => {
+  Child.findByCarerId(req.params.carerId, (err, data) => {
     if (err) {
       if (err.kind === 'not_found') {
         res.status(404).send({
-          message: `Not found with carer ID ${req.params.nurseryId}`
+          message: `Not found with carer ID ${req.params.carerId}`
         });
       } else {
         res.status(500).send({
-          message: `Error retrieving Child with carer ID ${req.params.nurseryId}`
+          message: `Error retrieving Child with carer ID ${req.params.carerId}`
         });
       }
     } else res.send(data);

@@ -51,7 +51,7 @@ Child.findByNurseryId = (nurseryId, result) => {
 };
 
 Child.findByCarerId = (carerId, result) => {
-  sql.query(`SELECT * FROM children WHERE carer_id = ${carerId}`, (err, res) => {
+  sql.query(`SELECT * FROM children WHERE carer_user_id = ${carerId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

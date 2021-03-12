@@ -26,8 +26,11 @@ exports.addUser = (req, res) => {
 
   // Create a Journal Entry
   const entry = new User({
+    first_name: req.body.first_name,
+    surname: req.body.surname,
     username: req.body.username,
     password: req.body.password,
+    nursery_id: req.body.nursery_id,
   });
 
   // Save Journal in the database
