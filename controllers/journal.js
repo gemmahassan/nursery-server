@@ -1,3 +1,4 @@
+const fs = require("fs");
 const Journal = require('../models/journal');
 
 exports.addEntry = (req, res) => {
