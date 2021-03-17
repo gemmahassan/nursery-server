@@ -5,7 +5,8 @@ const con = mysql.createConnection({
   user: "j3hfj9eli46n6fma",
   password: "vlm0y85pis2i322c",
   port: "3306",
-  database: "edm194ac963zsybs"
+  database: "edm194ac963zsybs",
+  multipleStatements: true
 });
 
 con.connect(function(err) {

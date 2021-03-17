@@ -1,3 +1,4 @@
+const fs = require("fs");
 const Nursery = require('../models/nursery');
 
 exports.getAllNurseries = (req, res) => {
@@ -39,5 +40,34 @@ exports.getAllChildren = (req, res) => {
         });
       }
     } else res.send(data);
+  });
+};
+
+
+exports.signup = (req, res, next) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  // const url = req.protocol + '://' + req.get('host');
+
+  const image = fs.readFileSync(req.file.path);
+  const nursery = new Nursery({
+    name: req.body.name,
+    // image: url + '/public/' + req.file.filename,
+    image: image,
+  });
+
+  // Save Journal in the database
+  Nursery.create(nursery, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "An error occurred while adding the nursery."
+      });
+    else res.send(data);
   });
 };
