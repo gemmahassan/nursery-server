@@ -2,29 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88e482d3-82cc-41ed-8a17-459f879996c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/middleware/upload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/address.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/2037f2ea-ed38-4f0f-b6cf-b23d434e98bf-20200330_081611.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/3e236373-c19e-45e9-aeaf-5991c675e2a9-20200412_132729.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/634af9e7-f1bf-4027-991c-b9336fd9d987-45f7a9bf-9fe3-474c-b2ee-067526260da8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/7d8a9f79-cc05-41a0-8790-17639a8348b0-45f7a9bf-9fe3-474c-b2ee-067526260da8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/92707554-3a73-4a64-9212-8ff6c5a16c1c-20200412_132729.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/a45bdf4d-1589-4b8e-b66d-8a41adeb3dfe-20200330_081611.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/b342f6b3-bed5-452e-ab16-f5056c197696-20200412_132729.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/df8de525-763e-43a4-8950-e87a79872c57-20200121_092919.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/f8ae7a58-668b-42ee-8ae9-125ee5f32a61-20200412_132729.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/68bda76c6d9ce80d1d587161f75e7f9e" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/c8fb2bf9a051b2cca0d3485d431093fb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/cfd8aaa91146f8e7ae5492e3b67bc31a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/0dc05565ba0f8844d61e68ede1986f45" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/11e8249e589db1dec7a6af666857b5a1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/4886c72aa91776d5081468decb40e343" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/4db63bbe492a54275482a84f4eea2071" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/95d4504de606dc3a4d2c60ef806c6588" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/c7bc603257b8552eac348c4525c4ad86" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/c7e78ad3d5373ec5f0164f85b29998fa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/d63b3579befe3b3aee79adffecc8acc0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/f65f055dc82b51d1b1f9b468c6833c6a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/journal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/db-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/db-config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/nursery.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/nursery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db-connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/db-connection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/verifySignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/verifySignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db-connection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/db.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/nursery.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/nursery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/2037f2ea-ed38-4f0f-b6cf-b23d434e98bf-20200330_081611.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/3e236373-c19e-45e9-aeaf-5991c675e2a9-20200412_132729.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/634af9e7-f1bf-4027-991c-b9336fd9d987-45f7a9bf-9fe3-474c-b2ee-067526260da8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/7d8a9f79-cc05-41a0-8790-17639a8348b0-45f7a9bf-9fe3-474c-b2ee-067526260da8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/92707554-3a73-4a64-9212-8ff6c5a16c1c-20200412_132729.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/a45bdf4d-1589-4b8e-b66d-8a41adeb3dfe-20200330_081611.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/b342f6b3-bed5-452e-ab16-f5056c197696-20200412_132729.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/df8de525-763e-43a4-8950-e87a79872c57-20200121_092919.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/f8ae7a58-668b-42ee-8ae9-125ee5f32a61-20200412_132729.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/nursery.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/nursery.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,19 +78,6 @@
       <recent name="$PROJECT_DIR$/routes" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -119,6 +107,11 @@
       <workItem from="1614331156667" duration="3509000" />
       <workItem from="1614768477593" duration="14844000" />
       <workItem from="1615835695465" duration="6659000" />
+      <workItem from="1616147287790" duration="3705000" />
+      <workItem from="1616406889933" duration="4476000" />
+      <workItem from="1616413699363" duration="317000" />
+      <workItem from="1616414102069" duration="6593000" />
+      <workItem from="1616495945098" duration="5896000" />
     </task>
     <task id="LOCAL-00001" summary="[MP-27] Change Backend to use mySQL instead of MongoDB">
       <created>1609864909220</created>
@@ -211,6 +204,7 @@
     <MESSAGE value="MP-52 Add Insert query for Journal" />
     <MESSAGE value="MP-54 Add Update query for Journal (backend)" />
     <MESSAGE value="MP-55 Add delete query for Journal (backend)" />
-    <option name="LAST_COMMIT_MESSAGE" value="MP-55 Add delete query for Journal (backend)" />
+    <MESSAGE value="workspace" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace" />
   </component>
 </project>
