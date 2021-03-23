@@ -2,6 +2,9 @@ const mysql = require('mysql');
 const dbConfig = require('../config/db-config');
 
 const connection = mysql.createConnection({
+  pool: dbConfig.POOL,
+  connectionLimit: dbConfig.CONNECTION_LIMIT,
+  waitForConnections: dbConfig.WAIT_FOR_CONNECTIONS,
   host: dbConfig.HOST,
   user: dbConfig.USER,
   password: dbConfig.PASSWORD,

@@ -2,31 +2,21 @@ const sql = require('./db');
 
 const Nursery = function(nursery) {
   this.name = nursery.name;
-  // this.address_id = nursery.address_id;
-  // this.contactName = nursery.contactName;
-  // this.email = nursery.email;
-  // this.phone = nursery.phone;
-  // this.addressLine1 = nursery.addressLine1;
-  // this.addressLine2 = nursery.addressLine2;
-  // this.town = nursery.town;
-  // this.postcode = nursery.postcode;
+  this.email = nursery.email;
+  this.phone = nursery.phone;
+  this.address_line_1 = nursery.addressLine1;
+  this.address_line_2 = nursery.addressLine2;
+  this.town = nursery.town;
+  this.county = nursery.county;
+  this.postcode = nursery.postcode;
+  this.pending = nursery.pending;
   this.image = nursery.image;
+  this.color = nursery.color;
 };
-//
-
 
 Nursery.create = (newNursery, result) => {
+  console.log("calling nursery model");
   sql.query("INSERT INTO nurseries SET ?", newNursery, (err, res) => {
-  // sql.query(
-    // "INSERT INTO nurseries SET ?",
-    // `BEGIN;
-    // INSERT INTO towns (town)
-    //   VALUE(town);
-    // INSERT INTO addresses (line1, line2, town_id, county_id, postcode)
-    //   VALUES(line1, line2, LAST_INSERT_ID(), county_id, postcode);
-    // INSERT INTO nurseries (name, address_id)
-    //   VALUES(name, LAST_INSERT_ID();
-    // COMMIT;` , (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -37,6 +27,33 @@ Nursery.create = (newNursery, result) => {
     result(null, { id: res.insertId, ...newNursery });
   });
 };
+
+Nursery.updateOnRegistration = (nurseryId, nursery, result) => {
+  console.log(nursery);
+  sql.query(
+    "UPDATE nurseries " +
+    "SET image = ?, " +
+    "color = ?, " +
+    "pending = ? " +
+    "WHERE id = ?",
+    [nursery.image, nursery.color, 2, nurseryId],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      console.log("updated nursery: ", {id: nurseryId, ...nursery});
+      result(null, {id: nurseryId, ...nurseryId});
+    }
+  );
+}
 
 Nursery.getAllChildren = (nurseryId, result) => {
   console.log('nursery-model: ', nurseryId);
@@ -49,6 +66,43 @@ Nursery.getAllChildren = (nurseryId, result) => {
 
     console.log("Retrieved children: ", res) ;
     result(null, res);
+  });
+};
+
+Nursery.getAllConfirmed = result => {
+  sql.query("SELECT * FROM nurseries WHERE pending = 2", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    const response = res.map(nursery => {
+      if (nursery.image) {
+        nursery.image = "data:image/png;base64," + Buffer.from(nursery.image, 'binary' ).toString('base64');
+      }
+      return nursery;
+    });
+    result(null, response);
+  });
+};
+
+Nursery.getAllPending = result => {
+  sql.query("SELECT * FROM nurseries WHERE pending = 1", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    const response = res.map(nursery => {
+      if (nursery.image) {
+        console.log("checking image");
+        nursery.image = "data:image/png;base64," + Buffer.from(nursery.image, 'binary').toString('base64');
+      }
+      return nursery;
+    });
+    result(null, response);
   });
 };
 
@@ -69,6 +123,7 @@ Nursery.getAll = result => {
     result(null, response);
   });
 };
+
 
 Nursery.findById = (nurseryId, result) => {
   sql.query(`SELECT * FROM nurseries WHERE id = ${nurseryId}`, (err, res) => {

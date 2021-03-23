@@ -1,7 +1,27 @@
 const fs = require("fs");
 const Nursery = require('../models/nursery');
 
-exports.getAllNurseries = (req, res) => {
+exports.getAllConfirmedNurseries = (req, res) => {
+  Nursery.getAllConfirmed((err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || `Error retrieving nurseries`
+      });
+    else res.send(data);
+  });
+};
+
+exports.getAllPendingNurseries = (req, res) => {
+  Nursery.getAllPending((err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || `Error retrieving nurseries`
+      });
+    else res.send(data);
+  });
+};
+
+exports.getAll = (req, res) => {
   Nursery.getAll((err, data) => {
     if (err)
       res.status(500).send({
@@ -52,16 +72,20 @@ exports.signup = (req, res, next) => {
     });
   }
 
-  // const url = req.protocol + '://' + req.get('host');
-
-  const image = fs.readFileSync(req.file.path);
+  console.log("CONTROLLER REQ BODY: ", req.body);
   const nursery = new Nursery({
     name: req.body.name,
-    // image: url + '/public/' + req.file.filename,
-    image: image,
+    // contactName: req.body.contactName,
+    email: req.body.email,
+    phone: req.body.phone,
+    addressLine1: req.body.addressLine1,
+    addressLine2: req.body.addressLine2,
+    town: req.body.town,
+    county: req.body.county,
+    postcode: req.body.postcode,
+    url: req.body.url
   });
 
-  // Save Journal in the database
   Nursery.create(nursery, (err, data) => {
     if (err)
       res.status(500).send({
@@ -70,4 +94,38 @@ exports.signup = (req, res, next) => {
       });
     else res.send(data);
   });
+};
+
+exports.updateOnRegistration = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+
+  // const url = req.protocol + '://' + req.get('host');
+  const image = fs.readFileSync(req.file.path);
+  const nursery = new Nursery({
+    // image: url + '/public/' + req.file.filename,
+    image: image,
+    color: req.body.color,
+  });
+
+  Nursery.updateOnRegistration(req.params.nurseryId, nursery,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No entry found with ID ${req.params.nurseryId}`
+          });
+        } else {
+          res.status(500).send({
+            message: `Error updating Nursery with ID ${req.params.nurseryId}`
+          })
+        }
+      } else res.send(data);
+    }
+  );
 };
