@@ -9,7 +9,7 @@ const Nursery = function(nursery) {
   this.town = nursery.town;
   this.county = nursery.county;
   this.postcode = nursery.postcode;
-  this.pending = nursery.pending;
+  // this.pending = nursery.pending;
   this.image = nursery.image;
   this.color = nursery.color;
 };
@@ -34,9 +34,9 @@ Nursery.updateOnRegistration = (nurseryId, nursery, result) => {
     "UPDATE nurseries " +
     "SET image = ?, " +
     "color = ?, " +
-    "pending = ? " +
+    "confirmed = ? " +
     "WHERE id = ?",
-    [nursery.image, nursery.color, 2, nurseryId],
+    [nursery.image, nursery.color, 1, nurseryId],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -50,6 +50,52 @@ Nursery.updateOnRegistration = (nurseryId, nursery, result) => {
       }
 
       console.log("updated nursery: ", {id: nurseryId, ...nursery});
+      result(null, {id: nurseryId, ...nurseryId});
+    }
+  );
+}
+
+Nursery.approve = (nurseryId, result) => {
+  console.log("changing pending to 0")
+  sql.query(
+    "UPDATE nurseries " +
+    "SET pending = ? " +
+    "WHERE id = ?",
+    [0, nurseryId],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      console.log("updated nursery: ", {id: nurseryId});
+      result(null, {id: nurseryId, ...nurseryId});
+    }
+  );
+}
+
+Nursery.decline = (nurseryId, result) => {
+  sql.query(
+    "DELETE FROM nurseries " +
+    "WHERE id = ?",
+    [nurseryId],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      console.log("deleted nursery: ", {id: nurseryId});
       result(null, {id: nurseryId, ...nurseryId});
     }
   );
@@ -70,7 +116,7 @@ Nursery.getAllChildren = (nurseryId, result) => {
 };
 
 Nursery.getAllConfirmed = result => {
-  sql.query("SELECT * FROM nurseries WHERE pending = 2", (err, res) => {
+  sql.query("SELECT * FROM nurseries WHERE confirmed = 1", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -134,7 +180,9 @@ Nursery.findById = (nurseryId, result) => {
     }
 
     if (res.length) {
-      res[0].image = "data:image/png;base64," + Buffer.from(res[0].image, 'binary' ).toString('base64');
+      if (res[0].image) {
+        res[0].image = "data:image/png;base64," + Buffer.from(res[0].image, 'binary' ).toString('base64');
+      }
       result(null, res[0]);
       return;
     }

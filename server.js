@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const nodemailer = require('nodemailer')
+const sendGridTransport = require('nodemailer-sendgrid-transport');
+const {SENDGRID_API} = require('./config/config');
 
 const corsWhitelist = ['http://localhost:8081', 'https://msc-nursery-app.herokuapp.com', 'http://localhost:8080'];
 
@@ -36,6 +39,30 @@ require('./routes/journal')(app);
 require('./routes/journal-type')(app);
 require('./routes/user')(app);
 require('./routes/auth')(app);
+
+const transporter = nodemailer.createTransport(sendGridTransport({
+  auth: {
+    api_key: SENDGRID_API
+  }
+}));
+
+app.post('/send', (req, res) => {
+  const {name, email, message, subject} = req.body
+  transporter.sendMail({
+    to: email,
+    from: email,
+    subject: subject,
+    html: `<h3>${name}</h3>
+           <p>${message}</p>`
+  }).then(resp => {
+    console.log("email sent");
+    res.json({resp})
+  })
+    .catch(err => {
+      console.log(err)
+    })
+})
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
