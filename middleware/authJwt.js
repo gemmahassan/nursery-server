@@ -23,6 +23,17 @@ verifyToken = (req, res, next) => {
   }
 };
 
+isSuperAdmin = (req, res, next) => {
+  if (req.role === "superadmin") {
+    next();
+    return;
+  }
+
+  res.status(403).send({
+    message: "Requires superadmin permission"
+  });
+};
+
 isAdmin = (req, res, next) => {
   if (req.role === "admin") {
     next();
@@ -58,6 +69,7 @@ isStaff = (req, res, next) => {
 
 const authJwt = {
   verifyToken: verifyToken,
+  isSuperAdmin: isSuperAdmin,
   isAdmin: isAdmin,
   isCarer: isCarer,
   isStaff: isStaff,
