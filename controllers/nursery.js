@@ -83,7 +83,6 @@ exports.signup = (req, res, next) => {
     town: req.body.town,
     county: req.body.county,
     postcode: req.body.postcode,
-    url: req.body.url
   });
 
   Nursery.create(nursery, (err, data) => {
@@ -123,6 +122,49 @@ exports.updateOnRegistration = (req, res) => {
         } else {
           res.status(500).send({
             message: `Error updating Nursery with ID ${req.params.nurseryId}`
+          })
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+exports.approve = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  Nursery.approve(req.params.nurseryId,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No entry found with ID ${req.params.nurseryId}`
+          });
+        } else {
+          res.status(500).send({
+            message: `Error updating Nursery with ID ${req.params.nurseryId}`
+          })
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+exports.decline = (req, res) => {
+  Nursery.decline(req.params.nurseryId,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No entry found with ID ${req.params.nurseryId}`
+          });
+        } else {
+          res.status(500).send({
+            message: `Error deleting Nursery with ID ${req.params.nurseryId}`
           })
         }
       } else res.send(data);
