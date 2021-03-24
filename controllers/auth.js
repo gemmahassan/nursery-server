@@ -33,6 +33,8 @@ exports.login = (req, res) => {
 
   // Filter user from the users array by username and password
   User.findByUsernameAndPassword(password, username, (err, user) => {
+    console.log("err: ", err);
+    console.log("user: ", user);
     if (err) {
       res.status(500).send({
         message:
@@ -40,7 +42,6 @@ exports.login = (req, res) => {
       });
     } else {
       if (user) {
-        console.log("user: ", user);
         // Generate an access token
         const accessToken = jwt.sign({
             userId: user.id,
@@ -68,11 +69,13 @@ exports.login = (req, res) => {
         });
         // res.send({accessToken});
       } else {
-        res.send('Username or password incorrect');
+        res.status(401).send({
+          message: "Login failed."
+        });
       }
     }
   });
-}
+};
 
 exports.logout = (req, res) => {
   const {token} = req.body;

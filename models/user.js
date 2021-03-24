@@ -72,12 +72,14 @@ User.findByUsernameAndPassword = (password, username, result) => {
         return;
       }
 
+      console.log("res: ", res);
       if (res.length) {
         console.log('found user: ', res[0]);
         result(null, res[0]);
         return;
       } else {
         console.log('no user found');
+        result(null);
         return;
       }
     });
