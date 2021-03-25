@@ -3,6 +3,8 @@ const sql = require('./db');
 const Child = function(child) {
   this.first_name = child.first_name;
   this.surname = child.surname;
+  this.image = child.image;
+  this.nursery_id = child.nursery_id;
 };
 
 Child.create = (newChild, result) => {
