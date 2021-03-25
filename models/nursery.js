@@ -49,14 +49,12 @@ Nursery.updateOnRegistration = (nurseryId, nursery, result) => {
         return;
       }
 
-      console.log("updated nursery: ", {id: nurseryId, ...nursery});
       result(null, {id: nurseryId, ...nurseryId});
     }
   );
 }
 
 Nursery.approve = (nurseryId, result) => {
-  console.log("changing pending to 0")
   sql.query(
     "UPDATE nurseries " +
     "SET pending = ? " +
@@ -73,7 +71,6 @@ Nursery.approve = (nurseryId, result) => {
         return;
       }
 
-      console.log("updated nursery: ", {id: nurseryId});
       result(null, {id: nurseryId, ...nurseryId});
     }
   );
@@ -143,7 +140,6 @@ Nursery.getAllPending = result => {
 
     const response = res.map(nursery => {
       if (nursery.image) {
-        console.log("checking image");
         nursery.image = "data:image/png;base64," + Buffer.from(nursery.image, 'binary').toString('base64');
       }
       return nursery;

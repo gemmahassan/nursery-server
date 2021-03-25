@@ -13,7 +13,10 @@ verifyToken = (req, res, next) => {
 
       req.userId = decoded.id;
       req.role = decoded.role;
-      req.nurseryId = decoded.nurseryId;
+      if (decoded.nurseryId) {
+        req.nurseryId = decoded.nurseryId;
+      }
+
       next();
     });
   } else {
