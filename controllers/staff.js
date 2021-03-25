@@ -1,4 +1,5 @@
 const Staff = require('../models/staff');
+const fs = require("fs");
 
 exports.findStaffByNurseryId = (req, res) => {
   Staff.findByNurseryId(req.params.nurseryId, (err, data) => {
@@ -13,5 +14,32 @@ exports.findStaffByNurseryId = (req, res) => {
         });
       }
     } else res.send(data);
+  });
+};
+
+exports.create = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  console.log("controller req: ", req.body);
+  const image = fs.readFileSync(req.file.path);
+  const staff = new Staff({
+    first_name: req.body.first_name,
+    surname: req.body.surname,
+    image: image,
+    nursery_id: req.body.nursery_id
+  });
+
+  Staff.create(staff,(err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "An error occurred while adding the staff member."
+      });
+    else res.send(data);
   });
 };

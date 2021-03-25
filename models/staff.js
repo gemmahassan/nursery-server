@@ -1,9 +1,10 @@
 const sql = require('./db');
 
 const Staff = function(staff) {
-  this.firstName = staff.firstName;
-  this.lastName = staff.lastName;
-  this.nurseryId = staff.nurseryId;
+  this.first_name = staff.first_name;
+  this.surname = staff.surname;
+  this.nursery_id = staff.nursery_id;
+  this.image = staff.image;
 };
 
 Staff.create = (newStaff, result) => {
