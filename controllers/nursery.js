@@ -72,7 +72,6 @@ exports.signup = (req, res, next) => {
     });
   }
 
-  console.log("CONTROLLER REQ BODY: ", req.body);
   const nursery = new Nursery({
     name: req.body.name,
     // contactName: req.body.contactName,

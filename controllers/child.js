@@ -1,23 +1,28 @@
+const fs = require("fs");
 const Child = require('../models/child');
 
 exports.createChild = (req, res) => {
-  const {role} = req.user;
-
-  if (role !== 'admin') {
-    return res.sendStatus(403);
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
   }
 
+  console.log("controller req: ", req.body);
+  const image = fs.readFileSync(req.file.path);
   const child = new Child({
     first_name: req.body.first_name,
     surname: req.body.surname,
-    carer_id: req.body.carer_id,
+    image: image,
+    nursery_id: req.body.nursery_id
   });
 
   Child.create(child,(err, data) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "An error occurred while creating the child."
+          err.message || "An error occurred while adding the child."
       });
     else res.send(data);
   });
