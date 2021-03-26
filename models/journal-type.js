@@ -12,7 +12,6 @@ JournalType.getAll = result => {
       return;
     }
 
-    console.log("Journal types: ", res);
     result(null, res);
   });
 };

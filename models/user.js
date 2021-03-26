@@ -2,8 +2,20 @@ const sql = require('./db');
 
 const User = function (user) {
   this.username = user.username;
-  this.password = user.password;
+  // this.password = user.password;
+  switch (user.role) {
+    case 'admin':
+      this.user_role_id = 500;
+      return;
+    case 'staff':
+      this.user_role_id = 501;
+      return;
+    case 'carer':
+      this.user_role_id = 502;
+      return;
+  }
 };
+
 
 User.create = (newUser, result) => {
   sql.query("INSERT INTO users SET ?", newUser, (err, res) => {
@@ -19,8 +31,6 @@ User.create = (newUser, result) => {
 };
 
 User.findById = (userId, result) => {
-  console.log("model query");
-  console.log(userId);
   sql.query(
     `SELECT * FROM users 
     WHERE users.id = '${userId}'`, (err, res) => {

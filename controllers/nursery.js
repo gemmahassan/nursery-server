@@ -64,7 +64,7 @@ exports.getAllChildren = (req, res) => {
 };
 
 
-exports.signup = (req, res, next) => {
+exports.signup = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({

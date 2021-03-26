@@ -9,13 +9,11 @@ const Nursery = function(nursery) {
   this.town = nursery.town;
   this.county = nursery.county;
   this.postcode = nursery.postcode;
-  // this.pending = nursery.pending;
   this.image = nursery.image;
   this.color = nursery.color;
 };
 
 Nursery.create = (newNursery, result) => {
-  console.log("calling nursery model");
   sql.query("INSERT INTO nurseries SET ?", newNursery, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -29,7 +27,6 @@ Nursery.create = (newNursery, result) => {
 };
 
 Nursery.updateOnRegistration = (nurseryId, nursery, result) => {
-  console.log(nursery);
   sql.query(
     "UPDATE nurseries " +
     "SET image = ?, " +
@@ -99,7 +96,6 @@ Nursery.decline = (nurseryId, result) => {
 }
 
 Nursery.getAllChildren = (nurseryId, result) => {
-  console.log('nursery-model: ', nurseryId);
   sql.query(`SELECT * FROM children WHERE nursery_id = ${nurseryId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);

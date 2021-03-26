@@ -29,7 +29,6 @@ Child.findAll = result => {
     }
 
     if (res.length) {
-      console.log("found all children", res);
       result(null, res);
       return;
     }
@@ -91,7 +90,6 @@ Child.findJournal = (childId, date, result) => {
     }
 
     if (res.length) {
-      console.log('findJournal: ', res);
       result(null, res);
       return;
     } else {

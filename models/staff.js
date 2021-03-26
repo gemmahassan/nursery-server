@@ -3,8 +3,10 @@ const sql = require('./db');
 const Staff = function(staff) {
   this.first_name = staff.first_name;
   this.surname = staff.surname;
-  this.nursery_id = staff.nursery_id;
+  this.email = staff.email;
   this.image = staff.image;
+  this.user_id = staff.user_id;
+  this.nursery_id = staff.nursery_id;
 };
 
 Staff.create = (newStaff, result) => {
@@ -35,5 +37,33 @@ Staff.findByNurseryId = (nurseryId, result) => {
     }
   });
 };
+
+Staff.update = (staffId, userId, result) => {
+  console.log("userId", userId);
+
+  console.log("staffId", staffId);
+  sql.query(
+    "UPDATE staff " +
+    "SET user_id = ? " +
+    "WHERE id = ?",
+    [userId, staffId],
+    (err, res) => {
+      console.log("err: ", err);
+      console.log("res: ", res);
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      result(null, {id: staffId, ...staffId});
+    }
+  );
+}
 
 module.exports = Staff;
