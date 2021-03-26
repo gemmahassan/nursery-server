@@ -17,6 +17,7 @@ exports.carerDashBoard = (req, res) => {
 };
 
 exports.addUser = (req, res) => {
+  console.log(req.body);
   // Validate request
   if (!req.body) {
     res.status(400).send({
@@ -25,16 +26,10 @@ exports.addUser = (req, res) => {
   }
 
   // Create a Journal Entry
-  const entry = new User({
-    first_name: req.body.first_name,
-    surname: req.body.surname,
-    username: req.body.username,
-    password: req.body.password,
-    nursery_id: req.body.nursery_id,
-  });
+  const user = new User(req.body);
 
   // Save Journal in the database
-  User.create(entry, (err, data) => {
+  User.create(user, (err, data) => {
     if (err)
       res.status(500).send({
         message:

@@ -9,7 +9,6 @@ exports.createChild = (req, res) => {
     });
   }
 
-  console.log("controller req: ", req.body);
   const image = fs.readFileSync(req.file.path);
   const child = new Child({
     first_name: req.body.first_name,

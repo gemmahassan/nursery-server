@@ -7,4 +7,5 @@ module.exports = app => {
   app.get("/staff", [authJwt.verifyToken, authJwt.isStaff], user.staffDashBoard);
   app.get("/carer", [authJwt.verifyToken, authJwt.isCarer], user.carerDashBoard);
   app.get("/user", [authJwt.verifyToken, authJwt.isCarer], user.carerDashBoard);
+  app.post("/user/add", [authJwt.verifyToken, authJwt.isAdmin], user.addUser);
 };

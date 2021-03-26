@@ -28,7 +28,6 @@ Address.getAll = result => {
       return;
     }
 
-    console.log("Addresses: ", res);
     result(null, res);
   });
 };
