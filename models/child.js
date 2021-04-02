@@ -101,10 +101,15 @@ Child.findJournal = (childId, date, result) => {
        journal.text, 
        journal.timestamp,
        journal.type_id, 
-       journal_types.type
+       journal_types.type,
+       journal.user_id,
+       users.first_name,
+       users.surname
      FROM journal
      INNER JOIN journal_types 
         ON journal.type_id=journal_types.id
+     INNER JOIN users
+        ON journal.user_id=users.id
      WHERE journal.child_id = ${childId}
      AND DATE(journal.timestamp) = '${date}'
      ORDER BY journal.timestamp DESC`,
@@ -116,6 +121,7 @@ Child.findJournal = (childId, date, result) => {
     }
 
     if (res.length) {
+      console.log(res);
       result(null, res);
       return;
     } else {
