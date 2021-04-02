@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
   res.json({message: 'Welcome to nursery app'});
 });
 
-require('./routes/staff')(app);
 require('./routes/nursery')(app);
 require('./routes/child')(app);
 require('./routes/journal')(app);

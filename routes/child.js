@@ -13,6 +13,7 @@ module.exports = app => {
     ],
     child.createChild
   );
+  app.put("/children/:childId", [authJwt.verifyToken, authJwt.isAdmin, upload.single('image')], child.update);
   app.get("/children", authJwt.verifyToken, child.findAllChildren);
   app.get("/child/:childId/journal/:date", child.findJournal);
   app.get("/:parentId/child/:childId/journal/:date", child.findJournal);

@@ -27,6 +27,43 @@ exports.createChild = (req, res) => {
   });
 };
 
+exports.update = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  let image;
+
+  if(req.file) {
+    image = fs.readFileSync(req.file.path);
+  }
+
+  const child = new Child({
+    first_name: req.body.first_name,
+    surname: req.body.surname,
+    image: image,
+  });
+
+  Child.update(req.params.childId, child,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No child found with ID ${req.params.childId}`
+          });
+        } else {
+          res.status(500).send({
+            message: `Error updating child with ID ${req.params.childId}`
+          })
+        }
+      } else res.send(data);
+    }
+  );
+};
+
 exports.findAllChildren = (req, res) => {
   Child.findAll((err, data) => {
     if (err) {

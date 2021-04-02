@@ -20,6 +20,32 @@ Child.create = (newChild, result) => {
   });
 };
 
+Child.update = (childId, child, result) => {
+  sql.query(
+    "UPDATE children " +
+    "SET first_name = ?," +
+    "surname = ?," +
+    "image = ? " +
+    "WHERE id = ?",
+    [child.first_name, child.surname, child.image, childId],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      console.log("updated child: ", {id: childId, ...child});
+      result(null, {id: childId, ...child});
+    }
+  );
+}
+
 Child.findAll = result => {
   sql.query('SELECT * FROM children', (err, res) => {
     if (err) {
