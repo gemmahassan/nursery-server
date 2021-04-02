@@ -69,11 +69,24 @@ Child.findByNurseryId = (nurseryId, result) => {
       return;
     }
 
-    if (res.length) {
-      console.log('found child: ', res);
-      result(null, res);
-      return;
-    }
+    const response = res.map(child => {
+      console.log(child);
+      if (child.image) {
+        child.image = "data:image/png;base64," + Buffer.from(child.image, 'binary' ).toString('base64');
+      }
+      console.log("child.image", child.image);
+      return child;
+    });
+    result(null, response);
+
+    // if (res.length) {
+    //   if (res.image) {
+    //     res.image = "data:image/png;base64," + Buffer.from(res.image, 'binary' ).toString('base64');
+    //   }
+    //   console.log('found child: ', res);
+    //   result(null, res);
+    //   return;
+    // }
   });
 };
 

@@ -2,6 +2,7 @@ const fs = require("fs");
 const Nursery = require('../models/nursery');
 
 exports.getAllConfirmedNurseries = (req, res) => {
+  console.log("controller confirmed nurseries");
   Nursery.getAllConfirmed((err, data) => {
     if (err)
       res.status(500).send({
