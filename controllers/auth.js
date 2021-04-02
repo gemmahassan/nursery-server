@@ -32,7 +32,7 @@ exports.login = (req, res) => {
   const {username, password} = req.body;
 
   // Filter user from the users array by username and password
-  User.findByUsernameAndPassword(password, username, (err, user) => {
+  User.login(password, username, (err, user) => {
     if (err) {
       res.status(500).send({
         message:
