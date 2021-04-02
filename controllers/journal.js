@@ -36,11 +36,7 @@ exports.addEntry = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  // only admin and staff users have permission to update a journal entry
-  if (role !== 'admin' || 'staff') {
-    return res.sendStatus(403);
-  }
-
+  console.log("update body: ", req.body);
   // Validate request
   if (!req.body) {
     res.status(400).send({
@@ -48,7 +44,21 @@ exports.update = (req, res) => {
     });
   }
 
-  Journal.update(req.params.journalId, new Journal(req.body),
+  let image;
+  if (req.file) {
+    image = fs.readFileSync(req.file.path);
+  }
+
+  // Create a Journal Entry
+  const entry = new Journal({
+    type_id: req.body.type_id,
+    image: image,
+    text: req.body.text,
+    child_id: req.body.child_id,
+    user_id: req.body.user_id,
+  });
+
+  Journal.update(req.params.journalId, entry,
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {

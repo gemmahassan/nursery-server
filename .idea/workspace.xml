@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5b09cf6-d7a2-4dc1-9ca0-cd2bdcaca750" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/uploads/4121bbbd2077d3deaa1f73dbb147952f" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/child.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/journal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/child.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/journal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
