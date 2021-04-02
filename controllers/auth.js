@@ -46,6 +46,7 @@ exports.login = (req, res) => {
             username: user.username,
             role: user.role,
             nurseryId: user.nursery_id,
+          activated: user.activated,
           },
           secret,
           {expiresIn: '60m'});
@@ -61,6 +62,7 @@ exports.login = (req, res) => {
           accessToken,
           username,
           refreshToken,
+          activated: user.activated,
           userId: user.id,
           role: user.role,
           nurseryId: user.nursery_id,

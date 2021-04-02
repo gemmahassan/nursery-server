@@ -10,4 +10,5 @@ module.exports = app => {
   app.get("/carer", [authJwt.verifyToken, authJwt.isCarer], user.carerDashBoard);
   app.get("/user", [authJwt.verifyToken, authJwt.isCarer], user.carerDashBoard);
   app.post("/user/add", [authJwt.verifyToken, authJwt.isAdmin || authJwt.isSuperAdmin, upload.single('image')], user.addUser);
+  app.get("/user/staff/:nurseryId", user.findStaffByNurseryId);
 };
