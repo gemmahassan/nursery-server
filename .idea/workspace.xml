@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="88e482d3-82cc-41ed-8a17-459f879996c4" name="Default Changelist" comment="" />
+    <list default="true" id="88e482d3-82cc-41ed-8a17-459f879996c4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/calendar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/calendar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/authJwt.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authJwt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,6 +56,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/controllers" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -89,6 +102,7 @@
       <workItem from="1616580815150" duration="2410000" />
       <workItem from="1616608607578" duration="281000" />
       <workItem from="1616660086410" duration="2860000" />
+      <workItem from="1617302196380" duration="2086000" />
     </task>
     <task id="LOCAL-00001" summary="[MP-27] Change Backend to use mySQL instead of MongoDB">
       <created>1609864909220</created>
