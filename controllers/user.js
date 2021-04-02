@@ -62,3 +62,20 @@ exports.addUser = async (req, res) => {
     else res.send(data);
   });
 };
+
+exports.findStaffByNurseryId = (req, res) => {
+  User.findStaffByNurseryId(req.params.nurseryId, (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Not found with nursery ID ${req.params.nurseryId}`
+        });
+      } else {
+        res.status(500).send({
+          message: `Error retrieving Staff with nursery ID ${req.params.nurseryId}`
+        });
+      }
+    } else res.send(data);
+  });
+};
+

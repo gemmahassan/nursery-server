@@ -36,8 +36,8 @@ User.create = (newUser, result) => {
 
 User.findById = (userId, result) => {
   sql.query(
-    `SELECT * FROM users 
-    WHERE users.id = '${userId}'`, (err, res) => {
+    'SELECT * FROM users ' +
+    'WHERE users.id = ?', userId, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -53,7 +53,7 @@ User.findById = (userId, result) => {
 };
 
 User.findByUsername = (username, result) => {
-  sql.query(`SELECT * FROM users WHERE username = ${username}`, (err, res) => {
+  sql.query('SELECT * FROM users WHERE username = ?', username, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -67,6 +67,57 @@ User.findByUsername = (username, result) => {
     }
   });
 };
+User.findAdmin = (result) => {
+  sql.query('SELECT * FROM users WHERE user_role_id = ?', 500, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log('found user: ', res[0]);
+      result(null, res[0]);
+      return;
+    }
+  });
+};
+
+User.findStaffByNurseryId = (nurseryId, result) => {
+  sql.query(
+    'SELECT * FROM users WHERE user_role_id = ? AND nursery_id = ?', nurseryId, 501, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log('found users: ', res);
+      result(null, res);
+      return;
+    }
+  });
+};
+
+User.findCarers = (username, result) => {
+  sql.query(`SELECT *
+             FROM users
+             WHERE user_role_id = 502`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log('found user: ', res[0]);
+      result(null, res[0]);
+      return;
+    }
+  });
+};
+
 
 User.login = (password, username, result) => {
   sql.query(
