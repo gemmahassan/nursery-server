@@ -1,12 +1,11 @@
 const sql = require('./db');
 
 const Journal = function(journal) {
-  this.id = journal.id;
   this.type_id = journal.type_id;
   this.image = journal.image;
   this.text = journal.text;
   this.child_id = journal.child_id;
-  this.staff_id = journal.staff_id;
+  this.user_id = journal.user_id;
 };
 
 Journal.create = (newJournal, result) => {
@@ -28,9 +27,10 @@ Journal.update = (journalId, journal, result) => {
     "SET child_id = ?," +
     "type_id = ?," +
     "image = ?," +
-    "text = ?" +
+    "text = ?, " +
+    "user_id = ? " +
     "WHERE id = ?",
-    [journal.child_id, journal.type_id, journal.image, journal.text, journalId],
+    [journal.child_id, journal.type_id, journal.image, journal.text, journal.user_id, journalId],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

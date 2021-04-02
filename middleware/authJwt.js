@@ -61,7 +61,7 @@ isCarer = (req, res, next) => {
 };
 
 isStaff = (req, res, next) => {
-  if (req.role === "staff") {
+  if (req.role === "admin" || "staff") {
     next();
     return;
   }

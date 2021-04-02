@@ -22,7 +22,6 @@ exports.carerDashBoard = (req, res) => {
 };
 
 exports.addUser = async (req, res) => {
-  console.log("BODY: ", req.body);
   // Validate request
   if (!req.body) {
     res.status(400).send({

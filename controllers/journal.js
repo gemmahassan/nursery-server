@@ -2,11 +2,7 @@ const fs = require("fs");
 const Journal = require('../models/journal');
 
 exports.addEntry = (req, res) => {
-  // only admin and staff users have permission to add a journal entry
-  if (role !== 'admin' || 'staff') {
-    return res.sendStatus(403);
-  }
-
+  console.log("body: ", req.body);
   // Validate request
   if (!req.body) {
     res.status(400).send({
@@ -14,13 +10,18 @@ exports.addEntry = (req, res) => {
     });
   }
 
+  let image;
+  if (req.file) {
+    image = fs.readFileSync(req.file.path);
+  }
+
   // Create a Journal Entry
   const entry = new Journal({
     type_id: req.body.type_id,
-    image: req.body.image,
+    image: image,
     text: req.body.text,
     child_id: req.body.child_id,
-    staff_id: req.body.staff_id,
+    user_id: req.body.user_id,
   });
 
   // Save Journal in the database

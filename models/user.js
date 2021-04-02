@@ -84,8 +84,7 @@ User.findAdmin = (result) => {
 };
 
 User.findStaffByNurseryId = (nurseryId, result) => {
-  sql.query(
-    'SELECT * FROM users WHERE user_role_id = ? AND nursery_id = ?', nurseryId, 501, (err, res) => {
+  sql.query('SELECT * FROM users WHERE user_role_id = ? AND nursery_id = ?', [nurseryId, 501], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
