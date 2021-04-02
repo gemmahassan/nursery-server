@@ -2,7 +2,6 @@ const fs = require("fs");
 const Journal = require('../models/journal');
 
 exports.addEntry = (req, res) => {
-  console.log("body: ", req.body);
   // Validate request
   if (!req.body) {
     res.status(400).send({
