@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="88e482d3-82cc-41ed-8a17-459f879996c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/calendar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/calendar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/calendar.js" afterDir="false" />
+    <list default="true" id="e5b09cf6-d7a2-4dc1-9ca0-cd2bdcaca750" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/uploads/0abb96187324754a107ae49ab5d4db87" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/0f76d789eae785a0a7da2b6d71c7db4c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/1b11303eea9caeac08b43b1ed6e5bcfa" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/31147ac1249a2b4795bc0c2c35e2cc22" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/339c85e2002fcad280c1412ae8dc07e2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/646ddc623f359852fb06f3ff07076e4d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/64b977496b454986e3e4c9938cabc7d5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/6997af1d306f2ab2787170510bbe1f8f" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/702d39620e179521a1669a45689346b8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/744c7d0f43a07e68301fd332beea72e7" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/8af373337af1ba4b6ccfceab3c4be65d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/97d04f97f969178509165c85bda08451" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/a5da02a773105d4e0986a1897afbd895" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/acb3b4fc0c1e0d26ed3d3b712f9c0d2e" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/aebf2f2942f8433b33597665150661eb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/b6ef368f64bf191f68508305ac52c65a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/b97ce1da14cde0bbcca50eb05cb583ad" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/cc71c417dbc578bede9653c8ac1be1dc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/dd5fc2d9246814c6298dc16b5f577e18" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/e6522ab1ed4136a2f2363b5aef19483f" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/authJwt.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authJwt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +218,21 @@
       <option name="project" value="LOCAL" />
       <updated>1616698008595</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="workspace">
+      <created>1617352360525</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1617352360525</updated>
+    </task>
+    <task id="LOCAL-00016" summary="workspace">
+      <created>1617352380805</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1617352380805</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

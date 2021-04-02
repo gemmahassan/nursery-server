@@ -12,11 +12,11 @@ exports.signup = (req, res) => {
   }
 
   const user = new User({
-    username: req.body.username,
+    username: req.body.email,
     password: req.body.password,
   });
 
-  // Save Journal in the database
+  // Save user in the database
   User.create(user, (err, data) => {
     if (err)
       res.status(500).send({
