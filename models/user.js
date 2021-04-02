@@ -1,8 +1,14 @@
 const sql = require('./db');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 
 const User = function (user) {
+  const password = user.password;
+  const encryptedPassword = bcrypt.hash(password, saltRounds);
+
   this.username = user.username;
-  // this.password = user.password;
+  this.password = encryptedPassword;
   switch (user.role) {
     case 'admin':
       this.user_role_id = 500;
@@ -64,7 +70,7 @@ User.findByUsername = (username, result) => {
   });
 };
 
-User.findByUsernameAndPassword = (password, username, result) => {
+User.login = (password, username, result) => {
   sql.query(
     `SELECT 
       users.id,
@@ -84,9 +90,16 @@ User.findByUsernameAndPassword = (password, username, result) => {
 
       console.log("res: ", res);
       if (res.length) {
-        console.log('found user: ', res[0]);
-        result(null, res[0]);
-        return;
+        const comparison = bcrypt.compare(password, res[0].password);
+        if (comparison) {
+          console.log('found user: ', res[0]);
+          result(null, res[0]);
+          return;
+        } else {
+          console.log('email and password do not match');
+          result(null);
+          return;
+        }
       } else {
         console.log('no user found');
         result(null);
