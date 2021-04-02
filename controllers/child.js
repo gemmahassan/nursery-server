@@ -36,7 +36,6 @@ exports.update = (req, res) => {
   }
 
   let image;
-
   if(req.file) {
     image = fs.readFileSync(req.file.path);
   }

@@ -97,6 +97,7 @@ Child.findJournal = (childId, date, result) => {
   sql.query(
     `SELECT 
        journal.id,
+       journal.child_id,
        journal.image, 
        journal.text, 
        journal.timestamp,
@@ -121,7 +122,7 @@ Child.findJournal = (childId, date, result) => {
     }
 
     if (res.length) {
-      console.log(res);
+      console.log("found journals: ", res);
       result(null, res);
       return;
     } else {
