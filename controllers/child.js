@@ -9,12 +9,17 @@ exports.createChild = (req, res) => {
     });
   }
 
-  const image = fs.readFileSync(req.file.path);
+  let image;
+  if (req.file) {
+     image = fs.readFileSync(req.file.path);
+  }
+
   const child = new Child({
     first_name: req.body.first_name,
     surname: req.body.surname,
     image: image,
-    nursery_id: req.body.nursery_id
+    nursery_id: req.body.nursery_id,
+    photo: req.body.photo,
   });
 
   Child.create(child,(err, data) => {
@@ -44,6 +49,7 @@ exports.update = (req, res) => {
     first_name: req.body.first_name,
     surname: req.body.surname,
     image: image,
+    photo: req.body.photo,
   });
 
   Child.update(req.params.childId, child,

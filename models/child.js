@@ -5,6 +5,7 @@ const Child = function(child) {
   this.surname = child.surname;
   this.image = child.image;
   this.nursery_id = child.nursery_id;
+  this.photo = child.photo ? 1 : 0;
 };
 
 Child.create = (newChild, result) => {
@@ -25,6 +26,7 @@ Child.update = (childId, child, result) => {
     "UPDATE children " +
     "SET first_name = ?," +
     "surname = ?," +
+    "photo = ?," +
     "image = ? " +
     "WHERE id = ?",
     [child.first_name, child.surname, child.image, childId],
@@ -70,23 +72,12 @@ Child.findByNurseryId = (nurseryId, result) => {
     }
 
     const response = res.map(child => {
-      console.log(child);
       if (child.image) {
         child.image = "data:image/png;base64," + Buffer.from(child.image, 'binary' ).toString('base64');
       }
-      console.log("child.image", child.image);
       return child;
     });
     result(null, response);
-
-    // if (res.length) {
-    //   if (res.image) {
-    //     res.image = "data:image/png;base64," + Buffer.from(res.image, 'binary' ).toString('base64');
-    //   }
-    //   console.log('found child: ', res);
-    //   result(null, res);
-    //   return;
-    // }
   });
 };
 
@@ -99,7 +90,6 @@ Child.findByCarerId = (carerId, result) => {
     }
 
     if (res.length) {
-      console.log('found child: ', res);
       result(null, res);
       return;
     }
@@ -134,14 +124,13 @@ Child.findJournal = (childId, date, result) => {
       return;
     }
 
-    if (res.length) {
-      console.log("found journals: ", res);
-      result(null, res);
-      return;
-    } else {
-      result(null, []);
-      return;
-    }
+      const response = res.map(entry => {
+        if (entry.image) {
+          entry.image = "data:image/png;base64," + Buffer.from(entry.image, 'binary' ).toString('base64');
+        }
+        return entry;
+      });
+      result(null, response);
   });
 };
 
