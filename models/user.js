@@ -29,7 +29,6 @@ User.create = (newUser, result) => {
       return;
     }
 
-    console.log("Created user: ", {id: res.insertId, ...newUser});
     result(null, {id: res.insertId, ...newUser});
   });
 };
@@ -45,7 +44,6 @@ User.findById = (userId, result) => {
       }
 
       if (res.length) {
-        console.log('found user: ', res[0]);
         result(null, res[0]);
         return;
       }
@@ -61,7 +59,6 @@ User.findByUsername = (username, result) => {
     }
 
     if (res.length) {
-      console.log('found user: ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -76,7 +73,6 @@ User.findAdmin = (result) => {
     }
 
     if (res.length) {
-      console.log('found user: ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -92,7 +88,6 @@ User.findStaffByNurseryId = (nurseryId, result) => {
     }
 
     if (res.length) {
-      console.log('found users: ', res);
       result(null, res);
       return;
     }
@@ -110,7 +105,6 @@ User.findCarers = (username, result) => {
     }
 
     if (res.length) {
-      console.log('found user: ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -143,7 +137,6 @@ User.login = (password, username, result) => {
       if (res.length) {
         const comparison = await bcrypt.compare(password, res[0].password);
         if (comparison) {
-          console.log('found user: ', res[0]);
           result(null, res[0]);
           return;
         } else {

@@ -41,7 +41,7 @@ Address.findById = (addressId, result) => {
     }
 
     if (res.length) {
-      console.log('found address: ', res[0]);
+      console.lo('found address: ', res[0]);
       result(null, res[0]);
       return;
     }

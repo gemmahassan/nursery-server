@@ -35,7 +35,6 @@ exports.addEntry = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  console.log("update body: ", req.body);
   // Validate request
   if (!req.body) {
     res.status(400).send({

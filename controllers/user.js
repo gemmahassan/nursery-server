@@ -50,8 +50,6 @@ exports.addUser = async (req, res) => {
     }
   );
 
-  console.log(user);
-
   User.create(user, (err, data) => {
     if (err)
       res.status(500).send({

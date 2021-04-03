@@ -21,7 +21,6 @@ Nursery.create = (newNursery, result) => {
       return;
     }
 
-    console.log("Created nursery: ", { id: res.insertId, ...newNursery });
     result(null, { id: res.insertId, ...newNursery });
   });
 };
@@ -77,7 +76,7 @@ Nursery.decline = (nurseryId, result) => {
   sql.query(
     "DELETE FROM nurseries " +
     "WHERE id = ?",
-    [nurseryId],
+    nurseryId,
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -89,14 +88,13 @@ Nursery.decline = (nurseryId, result) => {
         return;
       }
 
-      console.log("deleted nursery: ", {id: nurseryId});
       result(null, {id: nurseryId, ...nurseryId});
     }
   );
 }
 
 Nursery.getAllChildren = (nurseryId, result) => {
-  sql.query(`SELECT * FROM children WHERE nursery_id = ${nurseryId}`, (err, res) => {
+  sql.query('SELECT * FROM children WHERE nursery_id = ? ORDER BY surname', nurseryId, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -104,11 +102,9 @@ Nursery.getAllChildren = (nurseryId, result) => {
     }
 
     const response = res.map(child => {
-      console.log(child);
       if (child.image) {
         child.image = "data:image/png;base64," + Buffer.from(child.image, 'binary' ).toString('base64');
       }
-      console.log("child.image", child.image);
       return child;
     });
     result(null, response);
@@ -116,7 +112,7 @@ Nursery.getAllChildren = (nurseryId, result) => {
 };
 
 Nursery.getAllConfirmed = result => {
-  sql.query("SELECT * FROM nurseries WHERE confirmed = 1", (err, res) => {
+  sql.query("SELECT * FROM nurseries WHERE confirmed = 1 ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -134,7 +130,7 @@ Nursery.getAllConfirmed = result => {
 };
 
 Nursery.getAllPending = result => {
-  sql.query("SELECT * FROM nurseries WHERE pending = 1", (err, res) => {
+  sql.query("SELECT * FROM nurseries WHERE pending = 1 ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -152,7 +148,7 @@ Nursery.getAllPending = result => {
 };
 
 Nursery.getAll = result => {
-  sql.query("SELECT * FROM nurseries", (err, res) => {
+  sql.query("SELECT * FROM nurseries ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

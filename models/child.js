@@ -16,7 +16,6 @@ Child.create = (newChild, result) => {
       return;
     }
 
-    console.log("Created child: ", { id: res.insertId, ...newChild });
     result(null, { id: res.insertId, ...newChild });
   });
 };
@@ -42,14 +41,13 @@ Child.update = (childId, child, result) => {
         return;
       }
 
-      console.log("updated child: ", {id: childId, ...child});
       result(null, {id: childId, ...child});
     }
   );
 }
 
 Child.findAll = result => {
-  sql.query('SELECT * FROM children', (err, res) => {
+  sql.query('SELECT * FROM children ORDER BY surname', (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -64,7 +62,7 @@ Child.findAll = result => {
 };
 
 Child.findByNurseryId = (nurseryId, result) => {
-  sql.query(`SELECT * FROM children WHERE nursery_id = ${nurseryId}`, (err, res) => {
+  sql.query('SELECT * FROM children WHERE nursery_id = ? ORDER BY surname', nurseryId, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

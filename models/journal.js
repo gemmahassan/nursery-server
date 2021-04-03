@@ -16,7 +16,6 @@ Journal.create = (newJournal, result) => {
       return;
     }
 
-    console.log("Created journal entry: ", { id: res.insertId, ...newJournal });
     result(null, { id: res.insertId, ...newJournal });
   });
 };
@@ -43,7 +42,6 @@ Journal.update = (journalId, journal, result) => {
         return;
       }
 
-      console.log("updated journal: ", {id: journalId, ...journal});
       result(null, {id: journalId, ...journal});
     }
   );
@@ -62,7 +60,6 @@ Journal.remove = (id, result) => {
       return;
     }
 
-    console.log(`deleted journal with ID: ${id}`);
     result(null, res);
   });
 };

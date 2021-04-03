@@ -13,13 +13,11 @@ Calendar.create = (newCalendar, result) => {
       return;
     }
 
-    console.log("Created calendar entry: ", { id: res.insertId, ...newCalendar });
     result(null, { id: res.insertId, ...newCalendar });
   });
 };
 
 Calendar.findByNurseryId = (nurseryId, result) => {
-  console.log("entering model");
   sql.query(`SELECT * FROM calendar WHERE nursery_id = ${nurseryId}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -28,7 +26,6 @@ Calendar.findByNurseryId = (nurseryId, result) => {
     }
 
     if (res.length) {
-      console.log('found calendar: ', res);
       result(null, res);
       return;
     }
@@ -53,7 +50,6 @@ Calendar.update = (calendarId, calendar, result) => {
         return;
       }
 
-      console.log("updated journal: ", {id: calendarId, ...calendar});
       result(null, {id: calendarId, ...calendar});
     }
   );
@@ -72,7 +68,6 @@ Calendar.delete = (journalId, result) => {
       return;
     }
 
-    console.log(`deleted calendar entry with ID: ${journal}`);
     result(null, res);
   });
 };

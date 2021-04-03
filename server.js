@@ -55,7 +55,6 @@ app.post('/send', (req, res) => {
     html: `<h3>${name}</h3>
            <p>${message}</p>`
   }).then(resp => {
-    console.log("email sent");
     res.json({resp})
   })
     .catch(err => {

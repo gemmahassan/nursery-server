@@ -1,7 +1,6 @@
 const Calendar = require('../models/calendar');
 
 exports.findByNurseryId = (req, res) => {
-  console.log("entering controller");
   Calendar.findByNurseryId(req.params.nurseryId, (err, data) => {
     if (err) {
       if (err.kind === 'not_found') {
