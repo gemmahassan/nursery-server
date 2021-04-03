@@ -116,7 +116,6 @@ Nursery.getAllChildren = (nurseryId, result) => {
 };
 
 Nursery.getAllConfirmed = result => {
-  console.log("getting confirmed nurseries");
   sql.query("SELECT * FROM nurseries WHERE confirmed = 1", (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -125,11 +124,9 @@ Nursery.getAllConfirmed = result => {
     }
 
     const response = res.map(nursery => {
-      console.log(nursery);
       if (nursery.image) {
         nursery.image = "data:image/png;base64," + Buffer.from(nursery.image, 'binary' ).toString('base64');
       }
-      console.log("nursery.image", nursery.image);
       return nursery;
     });
     result(null, response);
