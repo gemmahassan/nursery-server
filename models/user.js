@@ -94,6 +94,29 @@ User.findStaffByNurseryId = (nurseryId, result) => {
   });
 };
 
+User.findChildren = (userId, result) => {
+  sql.query(
+    'SELECT carers.child_id, ' +
+    'children.first_name, ' +
+    'children.surname ' +
+    'FROM carers ' +
+    'INNER JOIN children ' +
+    'ON carers.child_id = children.id ' +
+    'WHERE carers.user_id = ? ' +
+    'ORDER BY children.surname', userId, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      result(null, res);
+      return;
+    }
+  });
+};
+
 User.findCarers = (username, result) => {
   sql.query(`SELECT *
              FROM users
@@ -118,6 +141,8 @@ User.login = (password, username, result) => {
       users.id,
       users.activated,
       users.username,
+      users.first_name,
+      users.surname,
       users.password,
       users.user_role_id,
       users.nursery_id,

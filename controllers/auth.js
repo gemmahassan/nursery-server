@@ -46,7 +46,9 @@ exports.login = (req, res) => {
             username: user.username,
             role: user.role,
             nurseryId: user.nursery_id,
-          activated: user.activated,
+            activated: user.activated,
+            firstName: user.first_name,
+            surname: user.surname,
           },
           secret,
           {expiresIn: '60m'});
@@ -66,6 +68,8 @@ exports.login = (req, res) => {
           userId: user.id,
           role: user.role,
           nurseryId: user.nursery_id,
+          firstName: user.first_name,
+          surname: user.surname,
         });
         // res.send({accessToken});
       } else {
