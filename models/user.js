@@ -81,12 +81,13 @@ User.findAdmin = (result) => {
 };
 
 User.findStaffByNurseryId = (nurseryId, result) => {
-  sql.query('SELECT * FROM users WHERE user_role_id = ? AND nursery_id = ? ORDER BY surname', [501, nurseryId], (err, res) => {
+  sql.query('SELECT * FROM users WHERE user_role_id = ?  OR user_role_id = ? AND nursery_id = ? ORDER BY surname', [500, 501, nurseryId], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
+    console.log("res: ", res);
 
     if (res.length) {
       result(null, res);
@@ -112,7 +113,7 @@ User.findCarersByNurseryId = (nurseryId, result) => {
 
 User.findChildren = (userId, result) => {
   sql.query(
-    'SELECT carers.child_id, ' +
+    'SELECT children.id, ' +
     'children.first_name, ' +
     'children.surname ' +
     'FROM carers ' +
