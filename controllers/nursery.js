@@ -71,6 +71,7 @@ exports.signup = (req, res) => {
       message: "Content can not be empty!"
     });
   }
+  const image = fs.readFileSync(req.file.path);
 
   const nursery = new Nursery({
     name: req.body.name,
@@ -83,6 +84,8 @@ exports.signup = (req, res) => {
     town: req.body.town,
     county: req.body.county,
     postcode: req.body.postcode,
+    color: req.body.color,
+    image: image,
   });
 
   Nursery.create(nursery, (err, data) => {

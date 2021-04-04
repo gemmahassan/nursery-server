@@ -57,9 +57,9 @@ Nursery.updateOnRegistration = (nurseryId, nursery, result) => {
 Nursery.approve = (nurseryId, result) => {
   sql.query(
     "UPDATE nurseries " +
-    "SET pending = ? " +
+    "SET confirmed = ? " +
     "WHERE id = ?",
-    [0, nurseryId],
+    [1, nurseryId],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -134,7 +134,7 @@ Nursery.getAllConfirmed = result => {
 };
 
 Nursery.getAllPending = result => {
-  sql.query("SELECT * FROM nurseries WHERE pending = 1 ORDER BY name", (err, res) => {
+  sql.query("SELECT * FROM nurseries WHERE confirmed = 0 ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

@@ -48,12 +48,12 @@ const transporter = nodemailer.createTransport(sendGridTransport({
 }));
 
 app.post('/send', (req, res) => {
-  const {name, email, message, subject} = req.body
+  const {firstName, surname, email, message, subject} = req.body
   transporter.sendMail({
     to: email,
     from: email,
     subject: subject,
-    html: `<h3>${name}</h3>
+    html: `<h3>${firstName} ${surname}</h3>
            <p>${message}</p>`
   }).then(resp => {
     res.json({resp})
