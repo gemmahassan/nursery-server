@@ -64,6 +64,7 @@ User.findByUsername = (username, result) => {
     }
   });
 };
+
 User.findAdmin = (result) => {
   sql.query('SELECT * FROM users WHERE user_role_id = ?', 500, (err, res) => {
     if (err) {
@@ -80,7 +81,22 @@ User.findAdmin = (result) => {
 };
 
 User.findStaffByNurseryId = (nurseryId, result) => {
-  sql.query('SELECT * FROM users WHERE user_role_id = ? AND nursery_id = ?', [nurseryId, 501], (err, res) => {
+  sql.query('SELECT * FROM users WHERE user_role_id = ? AND nursery_id = ? ORDER BY surname', [501, nurseryId], (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      result(null, res);
+      return;
+    }
+  });
+};
+
+User.findCarersByNurseryId = (nurseryId, result) => {
+  sql.query('SELECT * FROM users WHERE user_role_id = ? AND nursery_id = ? ORDER BY surname', [502, nurseryId], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

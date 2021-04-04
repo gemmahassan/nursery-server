@@ -40,6 +40,8 @@ exports.update = (req, res) => {
     });
   }
 
+  console.log("update: ", req.body);
+
   let image;
   if(req.file) {
     image = fs.readFileSync(req.file.path);

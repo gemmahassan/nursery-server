@@ -39,6 +39,7 @@ require('./routes/journal-type')(app);
 require('./routes/user')(app);
 require('./routes/auth')(app);
 require('./routes/calendar')(app);
+require('./routes/carer')(app);
 
 const transporter = nodemailer.createTransport(sendGridTransport({
   auth: {

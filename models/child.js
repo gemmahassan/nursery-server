@@ -24,11 +24,11 @@ Child.update = (childId, child, result) => {
   sql.query(
     "UPDATE children " +
     "SET first_name = ?," +
-    "surname = ?," +
-    "photo = ?," +
+    "surname = ?, " +
+    "photo = ?, " +
     "image = ? " +
     "WHERE id = ?",
-    [child.first_name, child.surname, child.image, childId],
+    [child.first_name, child.surname, child.photo, child.image, childId],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

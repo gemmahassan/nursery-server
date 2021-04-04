@@ -29,6 +29,8 @@ exports.addUser = async (req, res) => {
     });
   }
 
+  console.log(req.body);
+
   // generate a temporary password
   const temporaryPassword = passwordGenerator.generate({
     length: 10,
@@ -38,7 +40,11 @@ exports.addUser = async (req, res) => {
   // hash the temporary password before storing it in the database
   const encryptedTemporaryPassword = await bcrypt.hash(temporaryPassword, saltRounds);
 
-  const image = fs.readFileSync(req.file.path);
+  let image;
+  if (req.file) {
+    image = fs.readFileSync(req.file.path);
+  }
+
   const user = new User({
       first_name: req.body.first_name,
       surname: req.body.surname,
@@ -70,6 +76,22 @@ exports.findStaffByNurseryId = (req, res) => {
       } else {
         res.status(500).send({
           message: `Error retrieving Staff with nursery ID ${req.params.nurseryId}`
+        });
+      }
+    } else res.send(data);
+  });
+};
+
+exports.findCarersByNurseryId = (req, res) => {
+  User.findCarersByNurseryId(req.params.nurseryId, (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Not found with nursery ID ${req.params.nurseryId}`
+        });
+      } else {
+        res.status(500).send({
+          message: `Error retrieving carers with nursery ID ${req.params.nurseryId}`
         });
       }
     } else res.send(data);
