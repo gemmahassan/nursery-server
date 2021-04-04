@@ -4,6 +4,8 @@ const Nursery = function(nursery) {
   this.name = nursery.name;
   this.email = nursery.email;
   this.phone = nursery.phone;
+  this.contact_first_name = nursery.contact_first_name;
+  this.contact_surname = nursery.contact_surname;
   this.address_line_1 = nursery.addressLine1;
   this.address_line_2 = nursery.addressLine2;
   this.town = nursery.town;
@@ -26,6 +28,8 @@ Nursery.create = (newNursery, result) => {
 };
 
 Nursery.updateOnRegistration = (nurseryId, nursery, result) => {
+  console.log("update model");
+  console.log("nursery: ",  nursery);
   sql.query(
     "UPDATE nurseries " +
     "SET image = ?, " +

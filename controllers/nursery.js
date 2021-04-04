@@ -74,7 +74,8 @@ exports.signup = (req, res) => {
 
   const nursery = new Nursery({
     name: req.body.name,
-    // contactName: req.body.contactName,
+    contact_first_name: req.body.contactFirstName,
+    contact_surname: req.body.contactSurname,
     email: req.body.email,
     phone: req.body.phone,
     addressLine1: req.body.addressLine1,
@@ -95,12 +96,15 @@ exports.signup = (req, res) => {
 };
 
 exports.updateOnRegistration = (req, res) => {
+  console.log("update controller");
   // Validate request
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
   }
+
+  console.log(req);
 
 
   // const url = req.protocol + '://' + req.get('host');
