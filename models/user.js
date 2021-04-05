@@ -7,6 +7,7 @@ const User = function (user) {
   this.username = user.username;
   this.password = user.password;
   this.nursery_id = user.nursery_id;
+  this.token = user.token;
   this.image = user.image;
   switch (user.role) {
     case 'admin':
@@ -33,10 +34,55 @@ User.create = (newUser, result) => {
   });
 };
 
+User.register = (userId, password, result) => {
+  sql.query(
+    "UPDATE users " +
+    "SET password = ?," +
+    "activated = 1 " +
+    "WHERE id = ?",
+    [password, userId],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      result(null, {id: userId});
+    });
+};
+
+User.update = (userId, user, result) => {
+  sql.query(
+    "UPDATE users " +
+    "SET first_name = ?," +
+    "surname = ? " +
+    "WHERE id = ?",
+    [user.first_name, user.surname, userId],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      result(null, {id: userId, ...user});
+    });
+};
+
 User.findById = (userId, result) => {
   sql.query(
-    'SELECT * FROM users ' +
-    'WHERE users.id = ?', userId, (err, res) => {
+    'SELECT * FROM users WHERE users.id = ?', userId, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -121,7 +167,23 @@ User.findCarersByNurseryId = (nurseryId, result) => {
     });
 };
 
+User.findUserByToken = (token, result) => {
+  sql.query('SELECT * FROM users WHERE token = ? AND activated = 0', token, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      result(null, res);
+      return;
+    }
+  });
+};
+
 User.findChildren = (userId, result) => {
+  console.log("model");
   sql.query(
     'SELECT children.id, ' +
     'children.first_name, ' +
@@ -130,14 +192,16 @@ User.findChildren = (userId, result) => {
     'INNER JOIN children ' +
     'ON carers.child_id = children.id ' +
     'WHERE carers.user_id = ? ' +
-    'AND deleted IS NULL ' +
+    'AND children.deleted IS NULL ' +
     'ORDER BY children.surname', userId, (err, res) => {
+      console.log(res);
       if (err) {
         console.log("error: ", err);
         result(err, null);
         return;
       }
 
+      console.log(res);
       if (res.length) {
         result(null, res);
         return;
@@ -146,21 +210,18 @@ User.findChildren = (userId, result) => {
 };
 
 User.findCarers = (username, result) => {
-  sql.query(
-    'SELECT * FROM users' +
-    'WHERE user_role_id = 502',
-    (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
+  sql.query('SELECT * FROM users WHERE user_role_id = 502', (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
 
-      if (res.length) {
-        result(null, res[0]);
-        return;
-      }
-    });
+    if (res.length) {
+      result(null, res[0]);
+      return;
+    }
+  });
 };
 
 
