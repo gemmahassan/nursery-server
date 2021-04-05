@@ -30,9 +30,9 @@ Nursery.create = (newNursery, result) => {
 Nursery.approve = (nurseryId, result) => {
   sql.query(
     "UPDATE nurseries " +
-    "SET confirmed = ? " +
+    "SET confirmed = 1 " +
     "WHERE id = ?",
-    [1, nurseryId],
+    nurseryId,
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -71,7 +71,11 @@ Nursery.decline = (nurseryId, result) => {
 }
 
 Nursery.getAllChildren = (nurseryId, result) => {
-  sql.query('SELECT * FROM children WHERE nursery_id = ? ORDER BY surname', nurseryId, (err, res) => {
+  sql.query('' +
+    'SELECT * FROM children ' +
+    'WHERE nursery_id = ? ' +
+      'AND deleted IS NULL ' +
+    'ORDER BY surname', nurseryId, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -89,7 +93,11 @@ Nursery.getAllChildren = (nurseryId, result) => {
 };
 
 Nursery.getAllConfirmed = result => {
-  sql.query("SELECT * FROM nurseries WHERE confirmed = 1 ORDER BY name", (err, res) => {
+  sql.query(
+    "SELECT * FROM nurseries " +
+    "WHERE confirmed = 1 " +
+       "AND deleted IS NULL" +
+    "ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -107,7 +115,11 @@ Nursery.getAllConfirmed = result => {
 };
 
 Nursery.getAllPending = result => {
-  sql.query("SELECT * FROM nurseries WHERE confirmed = 0 ORDER BY name", (err, res) => {
+  sql.query(
+    "SELECT * FROM nurseries " +
+    "WHERE confirmed = 0 " +
+       "AND deleted IS NULL" +
+    "ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -125,7 +137,10 @@ Nursery.getAllPending = result => {
 };
 
 Nursery.getAll = result => {
-  sql.query("SELECT * FROM nurseries ORDER BY name", (err, res) => {
+  sql.query(
+    "SELECT * FROM nurseries " +
+    "WHERE deleted IS NULL" +
+    "ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -144,7 +159,7 @@ Nursery.getAll = result => {
 
 
 Nursery.findById = (nurseryId, result) => {
-  sql.query(`SELECT * FROM nurseries WHERE id = ${nurseryId}`, (err, res) => {
+  sql.query("SELECT * FROM nurseries WHERE id = ?", nurseryId, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

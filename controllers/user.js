@@ -113,3 +113,19 @@ exports.findChildren = (req, res) => {
     } else res.send(data);
   });
 };
+
+exports.delete = (req, res) => {
+  User.delete(req.params.userId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `User not found with ID ${req.params.userId}`
+        });
+      } else {
+        res.status(500).send({
+          message: `Could not delete user with ID ${req.params.userId}`
+        });
+      }
+    } else res.send({message: "User was deleted successfully!"});
+  });
+};

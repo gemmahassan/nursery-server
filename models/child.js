@@ -1,6 +1,6 @@
 const sql = require('./db');
 
-const Child = function(child) {
+const Child = function (child) {
   this.first_name = child.first_name;
   this.surname = child.surname;
   this.image = child.image;
@@ -16,7 +16,7 @@ Child.create = (newChild, result) => {
       return;
     }
 
-    result(null, { id: res.insertId, ...newChild });
+    result(null, {id: res.insertId, ...newChild});
   });
 };
 
@@ -71,7 +71,7 @@ Child.findByNurseryId = (nurseryId, result) => {
 
     const response = res.map(child => {
       if (child.image) {
-        child.image = "data:image/png;base64," + Buffer.from(child.image, 'binary' ).toString('base64');
+        child.image = "data:image/png;base64," + Buffer.from(child.image, 'binary').toString('base64');
       }
       return child;
     });
@@ -113,23 +113,52 @@ Child.findJournal = (childId, date, result) => {
      INNER JOIN users
         ON journal.user_id=users.id
      WHERE journal.child_id = ${childId}
+     AND journal.deleted IS NULL
      AND DATE(journal.timestamp) = '${date}'
      ORDER BY journal.timestamp DESC`,
     (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
 
       const response = res.map(entry => {
         if (entry.image) {
-          entry.image = "data:image/png;base64," + Buffer.from(entry.image, 'binary' ).toString('base64');
+          entry.image = "data:image/png;base64," + Buffer.from(entry.image, 'binary').toString('base64');
         }
         return entry;
       });
       result(null, response);
-  });
+    });
 };
+
+Child.delete = (id, result) => {
+  sql.query(
+    "START TRANSACTION;" +
+    "UPDATE children " +
+    "SET deleted = CURRENT_TIMESTAMP() " +
+    "WHERE id = ? ;" +
+    "UPDATE carers " +
+    "SET deleted = CURRENT_TIMESTAMP() " +
+    "WHERE child_id = ?l" +
+    "COMMIT;",
+    [id, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        result({kind: "not_found"}, null);
+        return;
+      }
+
+      result(null, res);
+    });
+};
+
 
 module.exports = Child;

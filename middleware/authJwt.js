@@ -38,6 +38,7 @@ isSuperAdmin = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
+  console.log(req.role);
   if (req.role === "superadmin" || req.role === "admin") {
     next();
     return;
