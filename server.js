@@ -42,19 +42,16 @@ require('./routes/calendar')(app);
 require('./routes/carer')(app);
 
 const transporter = nodemailer.createTransport(sendGridTransport({
-  auth: {
-    api_key: SENDGRID_API
-  }
+  auth: {api_key: SENDGRID_API}
 }));
 
-app.post('/send', (req, res) => {
-  const {firstName, surname, email, message, subject} = req.body
+app.post('/send', (req, res) => {console.log("BODY!" , req.body);
+  const {email, message, subject} = req.body
   transporter.sendMail({
     to: email,
-    from: email,
+    from: 'nurseryjournal@gmail.com',
     subject: subject,
-    html: `<h3>${firstName} ${surname}</h3>
-           <p>${message}</p>`
+    html: `<p>${message}</p>`
   }).then(resp => {
     res.json({resp})
   })
@@ -62,7 +59,6 @@ app.post('/send', (req, res) => {
       console.log(err)
     })
 })
-
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

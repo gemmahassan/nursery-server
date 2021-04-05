@@ -96,7 +96,7 @@ Nursery.getAllConfirmed = result => {
   sql.query(
     "SELECT * FROM nurseries " +
     "WHERE confirmed = 1 " +
-       "AND deleted IS NULL" +
+       "AND deleted IS NULL " +
     "ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -118,7 +118,7 @@ Nursery.getAllPending = result => {
   sql.query(
     "SELECT * FROM nurseries " +
     "WHERE confirmed = 0 " +
-       "AND deleted IS NULL" +
+       "AND deleted IS NULL " +
     "ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -139,7 +139,7 @@ Nursery.getAllPending = result => {
 Nursery.getAll = result => {
   sql.query(
     "SELECT * FROM nurseries " +
-    "WHERE deleted IS NULL" +
+    "WHERE deleted IS NULL " +
     "ORDER BY name", (err, res) => {
     if (err) {
       console.log("error: ", err);

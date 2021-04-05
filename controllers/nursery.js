@@ -63,7 +63,6 @@ exports.getAllChildren = (req, res) => {
   });
 };
 
-
 exports.signup = (req, res) => {
   // Validate request
   if (!req.body) {
@@ -98,51 +97,7 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.updateOnRegistration = (req, res) => {
-  console.log("update controller");
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
-
-  console.log(req);
-
-
-  // const url = req.protocol + '://' + req.get('host');
-  const image = fs.readFileSync(req.file.path);
-  const nursery = new Nursery({
-    // image: url + '/public/' + req.file.filename,
-    image: image,
-    color: req.body.color,
-  });
-
-  Nursery.updateOnRegistration(req.params.nurseryId, nursery,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `No entry found with ID ${req.params.nurseryId}`
-          });
-        } else {
-          res.status(500).send({
-            message: `Error updating Nursery with ID ${req.params.nurseryId}`
-          })
-        }
-      } else res.send(data);
-    }
-  );
-};
-
 exports.approve = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
-
   Nursery.approve(req.params.nurseryId,
     (err, data) => {
       if (err) {

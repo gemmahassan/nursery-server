@@ -25,4 +25,10 @@ module.exports = app => {
     [authJwt.verifyToken, authJwt.isAdmin],
     user.delete
   );
+
+  app.get("/user/:token", user.findUserByToken);
+  app.put("/user/:userId", user.register);
+
+  app.put("/user/:userId/edit", user.update);
+
 };
