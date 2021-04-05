@@ -134,3 +134,19 @@ exports.findJournal = (req, res) => {
     } else res.send(data);
   });
 };
+
+exports.delete = (req, res) => {
+  Child.delete(req.params.childId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Child not found with ID ${req.params.childId}`
+        });
+      } else {
+        res.status(500).send({
+          message: `Could not delete child with ID ${req.params.childId}`
+        });
+      }
+    } else res.send({message: "Child was deleted successfully!"});
+  });
+};

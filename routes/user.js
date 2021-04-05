@@ -9,8 +9,20 @@ module.exports = app => {
   app.get("/staff", [authJwt.verifyToken, authJwt.isStaff], user.staffDashBoard);
   app.get("/carer", [authJwt.verifyToken, authJwt.isCarer], user.carerDashBoard);
   app.get("/user", [authJwt.verifyToken, authJwt.isCarer], user.carerDashBoard);
-  app.post("/user/add", [authJwt.verifyToken, authJwt.isAdmin || authJwt.isSuperAdmin, upload.single('image')], user.addUser);
+
+  app.post(
+    "/user/add",
+    [authJwt.verifyToken, authJwt.isAdmin || authJwt.isSuperAdmin, upload.single('image')],
+    user.addUser
+  );
+
   app.get("/user/staff/:nurseryId", user.findStaffByNurseryId);
   app.get("/user/carers/:nurseryId", user.findCarersByNurseryId);
   app.get("/user/:userId/children", user.findChildren);
+
+  app.delete(
+    "/user/:userId",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    user.delete
+  );
 };

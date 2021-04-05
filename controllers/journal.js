@@ -74,11 +74,6 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  // only admin and staff users have permission to delete a journal entry
-  if (role !== 'admin' || 'staff') {
-    return res.sendStatus(403);
-  }
-
   Journal.remove(req.params.journalId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {

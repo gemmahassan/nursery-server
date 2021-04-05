@@ -48,7 +48,10 @@ Journal.update = (journalId, journal, result) => {
 }
 
 Journal.remove = (id, result) => {
-  sql.query("DELETE FROM journal WHERE id = ?", id, (err, res) => {
+  sql.query(
+    "UPDATE journal " +
+    "SET deleted = CURRENT_TIMESTAMP() " +
+    "WHERE id = ? ", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
