@@ -5,7 +5,6 @@ const authJwt = require("../middleware/authJwt");
 
 module.exports = app => {
   app.post('/contact', upload.single('image'), nursery.signup);
-  app.put('/signup/:nurseryId', upload.single('image'), nursery.updateOnRegistration);
   app.put('/admin/:nurseryId/approve', [authJwt.verifyToken, authJwt.isSuperAdmin], nursery.approve);
   app.delete('/admin/:nurseryId/decline', [authJwt.verifyToken, authJwt.isSuperAdmin], nursery.decline);
   app.get("/nurseries", nursery.getAll);

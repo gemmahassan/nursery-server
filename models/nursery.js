@@ -27,33 +27,6 @@ Nursery.create = (newNursery, result) => {
   });
 };
 
-Nursery.updateOnRegistration = (nurseryId, nursery, result) => {
-  console.log("update model");
-  console.log("nursery: ",  nursery);
-  sql.query(
-    "UPDATE nurseries " +
-    "SET image = ?, " +
-    "color = ?, " +
-    "confirmed = ? " +
-    "WHERE id = ?",
-    [nursery.image, nursery.color, 1, nurseryId],
-    (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
-
-      if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
-        return;
-      }
-
-      result(null, {id: nurseryId, ...nurseryId});
-    }
-  );
-}
-
 Nursery.approve = (nurseryId, result) => {
   sql.query(
     "UPDATE nurseries " +

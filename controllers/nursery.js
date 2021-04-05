@@ -75,8 +75,8 @@ exports.signup = (req, res) => {
 
   const nursery = new Nursery({
     name: req.body.name,
-    contact_first_name: req.body.contactFirstName,
-    contact_surname: req.body.contactSurname,
+    contact_first_name: req.body.contact_first_name,
+    contact_surname: req.body.contact_surname,
     email: req.body.email,
     phone: req.body.phone,
     addressLine1: req.body.addressLine1,
