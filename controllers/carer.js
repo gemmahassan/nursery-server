@@ -11,6 +11,7 @@ exports.addCarer = (req, res) => {
   const carer = new Carer({
       child_id: req.body.childId,
       user_id: req.body.userId,
+    nursery_id: req.body.nurseryId,
     }
   );
 

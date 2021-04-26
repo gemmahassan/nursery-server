@@ -5,7 +5,7 @@ const child = require("../controllers/child");
 
 module.exports = app => {
   app.post(
-    "/child/add",
+    "/children/add",
     [authJwt.verifyToken, authJwt.isAdmin, upload.single('image')],
     child.createChild
   );
@@ -15,13 +15,12 @@ module.exports = app => {
     [authJwt.verifyToken, authJwt.isAdmin, upload.single('image')],
     child.update);
 
-  app.get("/children", authJwt.verifyToken, child.findAllChildren);
-  app.get("/child/:childId/journal/:date", child.findJournal);
-  app.get("/:parentId/child/:childId/journal/:date", child.findJournal);
+  app.get("/children/:childId", child.findChildById);
+  app.get("/children/:childId/journal/:date", child.findJournal);
   app.get("/children/:carerId", child.findChildrenByCarerId);
 
   app.delete(
-    "/child/:childId",
+    "/children/:childId",
     [authJwt.verifyToken, authJwt.isAdmin],
     child.delete
   );

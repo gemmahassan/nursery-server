@@ -85,6 +85,8 @@ exports.signup = (req, res) => {
     postcode: req.body.postcode,
     color: req.body.color,
     image: image,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
   });
 
   Nursery.create(nursery, (err, data) => {
@@ -117,6 +119,60 @@ exports.approve = (req, res) => {
 
 exports.decline = (req, res) => {
   Nursery.decline(req.params.nurseryId,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No entry found with ID ${req.params.nurseryId}`
+          });
+        } else {
+          res.status(500).send({
+            message: `Error deleting Nursery with ID ${req.params.nurseryId}`
+          })
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+exports.purge = (req, res) => {
+  Nursery.purge(req, (err, data) => {
+      if (err) {
+        console.log(err);
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No entry found with ID ${req.params.nurseryId}`
+          });
+        } else {
+          res.status(500).send({
+            message: `Error deleting Nursery with ID ${req.params.nurseryId}`
+          })
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+exports.deactivate = (req, res) => {
+  Nursery.deactivate(req.params.nurseryId,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No entry found with ID ${req.params.nurseryId}`
+          });
+        } else {
+          res.status(500).send({
+            message: `Error deleting Nursery with ID ${req.params.nurseryId}`
+          })
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+exports.delete = (req, res) => {
+  Nursery.delete(req.params.nurseryId,
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {

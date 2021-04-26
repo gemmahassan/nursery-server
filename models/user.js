@@ -104,10 +104,17 @@ User.findByUsername = (username, result) => {
       return;
     }
 
+    console.log("res: ", res);
+
+    // return result when matching username is found
     if (res.length) {
       result(null, res[0]);
       return;
     }
+
+    // return if nothing is returned so middleware can verify unique username
+    result(null, null);
+    return;
   });
 };
 
@@ -183,7 +190,6 @@ User.findUserByToken = (token, result) => {
 };
 
 User.findChildren = (userId, result) => {
-  console.log("model");
   sql.query(
     'SELECT children.id, ' +
     'children.first_name, ' +
@@ -209,20 +215,20 @@ User.findChildren = (userId, result) => {
     });
 };
 
-User.findCarers = (username, result) => {
-  sql.query('SELECT * FROM users WHERE user_role_id = 502', (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-
-    if (res.length) {
-      result(null, res[0]);
-      return;
-    }
-  });
-};
+// User.findCarers = (username, result) => {
+//   sql.query('SELECT * FROM users WHERE user_role_id = 502 AND', (err, res) => {
+//     if (err) {
+//       console.log("error: ", err);
+//       result(err, null);
+//       return;
+//     }
+//
+//     if (res.length) {
+//       result(null, res[0]);
+//       return;
+//     }
+//   });
+// };
 
 
 User.login = (password, username, result) => {
@@ -241,7 +247,8 @@ User.login = (password, username, result) => {
     'FROM users ' +
     'INNER JOIN user_roles ' +
     'ON users.user_role_id = user_roles.id ' +
-    'WHERE users.username = ?',
+    'WHERE users.username = ? ' +
+    "AND users.deleted IS NULL ",
     username,
     async (err, res) => {
       if (err) {

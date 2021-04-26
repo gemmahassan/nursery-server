@@ -5,6 +5,9 @@ const nodemailer = require('nodemailer')
 const sendGridTransport = require('nodemailer-sendgrid-transport');
 const {SENDGRID_API} = require('./config/config');
 
+const app = express();
+
+// allow these addresses to access the server
 const corsWhitelist = ['http://localhost:8081', 'https://msc-nursery-app.herokuapp.com', 'http://localhost:8080'];
 
 const corsOptions = {
@@ -17,8 +20,7 @@ const corsOptions = {
   }
 };
 
-const app = express();
-
+// enable CORS for the whitelist above
 app.use(cors(corsOptions));
 
 // parse requests of content-type application/json
@@ -27,11 +29,12 @@ app.use(bodyParser.json());
 // parse requests of content-type application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 
-// simple route
+// a basic route to test connection to the server
 app.get('/', (req, res) => {
   res.json({message: 'Welcome to nursery app'});
 });
 
+// import routes
 require('./routes/nursery')(app);
 require('./routes/child')(app);
 require('./routes/journal')(app);
@@ -45,7 +48,8 @@ const transporter = nodemailer.createTransport(sendGridTransport({
   auth: {api_key: SENDGRID_API}
 }));
 
-app.post('/send', (req, res) => {console.log("BODY!" , req.body);
+// route for sending email via nodeMailer
+app.post('/send', (req, res) => {
   const {email, message, subject} = req.body
   transporter.sendMail({
     to: email,

@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5b09cf6-d7a2-4dc1-9ca0-cd2bdcaca750" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/uploads/06edba5f1a15a82fa21cbb6efe6adeb3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/0ecfba8f3a0608d62fe00ffbab03f1bf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/17213e95700a587133d4199784577ca4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/2ad4b4b02eb3b1a07ba942b475736019" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/460adf0ed6e063ef6f7e5066ad903868" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/5d90a0877125465c6ec9da78c926c6e9" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/966fbaaa8ae2ca85ba9dfce4a994a3f6" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/bce873b75a26b563e4b193bcbcfa638c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/c50d33f0c3f7f965396fa7dcd6c5775a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/cabdfec2ac9c76c8770e41d0ef99d3a2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/dcabf6ab7190ecb37b3ccd6c35fa86b4" afterDir="false" />
+    <list default="true" id="e5b09cf6-d7a2-4dc1-9ca0-cd2bdcaca750" name="Default Changelist" comment="workspace">
+      <change afterPath="$PROJECT_DIR$/uploads/37a4f8aa1f10521b5218f6153a9d24e5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/3b224ab3c84214f983af935c9ea084a1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/carer.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/carer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/child.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/journal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/nursery.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/nursery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/authJwt.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authJwt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/verifySignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/verifySignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/carer.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/carer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/child.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/journal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/nursery.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/nursery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/carer.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/carer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/child.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/journal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/nursery.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/nursery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
@@ -62,6 +70,9 @@
     <property name="jdk.selected.JAVA_MODULE" value="14" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
@@ -73,15 +84,13 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -127,7 +136,18 @@
       <workItem from="1617302196380" duration="2086000" />
       <workItem from="1617442165466" duration="2142000" />
       <workItem from="1617527763772" duration="5986000" />
-      <workItem from="1617610071719" duration="19908000" />
+      <workItem from="1617610071719" duration="21731000" />
+      <workItem from="1617782881238" duration="2538000" />
+      <workItem from="1617911049929" duration="42000" />
+      <workItem from="1617911109384" duration="2017000" />
+      <workItem from="1617953924714" duration="500000" />
+      <workItem from="1617995253358" duration="480000" />
+      <workItem from="1617998385930" duration="3970000" />
+      <workItem from="1618129787286" duration="12229000" />
+      <workItem from="1618339055755" duration="2617000" />
+      <workItem from="1618351761748" duration="122000" />
+      <workItem from="1618405193451" duration="317000" />
+      <workItem from="1618659118106" duration="11919000" />
     </task>
     <task id="LOCAL-00001" summary="[MP-27] Change Backend to use mySQL instead of MongoDB">
       <created>1609864909220</created>
@@ -260,6 +280,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

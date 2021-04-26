@@ -21,6 +21,7 @@ exports.addEntry = (req, res) => {
     text: req.body.text,
     child_id: req.body.child_id,
     user_id: req.body.user_id,
+    nursery_id: req.body.nursery_id,
   });
 
   // Save Journal in the database
@@ -41,6 +42,8 @@ exports.update = (req, res) => {
       message: "Content can not be empty!"
     });
   }
+
+  console.log(req.body);
 
   let image;
   if (req.file) {

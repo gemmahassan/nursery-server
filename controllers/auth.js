@@ -31,7 +31,7 @@ exports.login = (req, res) => {
   // Read username and password from request body
   const {username, password} = req.body;
 
-  // Filter user from the users array by username and password
+  // returns user details matching username and password
   User.login(password, username, (err, user) => {
     if (err) {
       res.status(500).send({
@@ -40,6 +40,7 @@ exports.login = (req, res) => {
       });
     } else {
       if (user) {
+        console.log(user);
         // Generate an access token
         const accessToken = jwt.sign({
             userId: user.id,
@@ -52,6 +53,7 @@ exports.login = (req, res) => {
           },
           secret,
           {expiresIn: '60m'});
+
         const refreshToken = jwt.sign({
             username: user.username,
             role: user.role,
@@ -60,6 +62,7 @@ exports.login = (req, res) => {
 
         refreshTokens.push(refreshToken);
 
+        // return the access token to the frontend along with necessary user data
         res.json({
           accessToken,
           username,
@@ -71,7 +74,6 @@ exports.login = (req, res) => {
           firstName: user.first_name,
           surname: user.surname,
         });
-        // res.send({accessToken});
       } else {
         res.status(401).send({
           message: "Login failed."
@@ -79,13 +81,6 @@ exports.login = (req, res) => {
       }
     }
   });
-};
-
-exports.logout = (req, res) => {
-  const {token} = req.body;
-  refreshTokens = refreshTokens.filter(token => t !== token);
-
-  res.send("Logout successful");
 };
 
 exports.token = (req, res) => {

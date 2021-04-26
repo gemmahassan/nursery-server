@@ -29,14 +29,12 @@ exports.addUser = (req, res) => {
     });
   }
 
-  // generate a temporary password
+  console.log("user: ", req.body);
+  // generate a temporary token
   const temporaryToken = passwordGenerator.generate({
     length: 10,
     numbers: true,
   });
-
-  // // hash the temporary password before storing it in the database
-  // const encryptedTemporaryToken = await bcrypt.hash(temporaryToken, saltRounds);
 
   let image;
   if (req.file) {
@@ -94,7 +92,7 @@ exports.update = (req, res) => {
 
 
   const user = new User({
-    first_name: req.body.first_name,
+    first_name: req.body.firstName,
     surname: req.body.surname,
   });
 

@@ -103,6 +103,22 @@ exports.findChildrenByNurseryId = (req, res) => {
   });
 };
 
+exports.findChildById = (req, res) => {
+  Child.findById(req.params.childId, (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Not found with child ID ${req.params.childId}`
+        });
+      } else {
+        res.status(500).send({
+          message: `Error retrieving Child with child ID ${req.params.childId}`
+        });
+      }
+    } else res.send(data);
+  });
+};
+
 exports.findChildrenByCarerId = (req, res) => {
   Child.findByCarerId(req.params.carerId, (err, data) => {
     if (err) {

@@ -18,7 +18,7 @@ Calendar.create = (newCalendar, result) => {
 };
 
 Calendar.findByNurseryId = (nurseryId, result) => {
-  sql.query(`SELECT * FROM calendar WHERE nursery_id = ${nurseryId}`, (err, res) => {
+  sql.query(`SELECT * FROM calendar WHERE nursery_id = ? AND deleted IS NULL`, nurseryId, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -56,7 +56,7 @@ Calendar.update = (calendarId, calendar, result) => {
 }
 
 Calendar.delete = (journalId, result) => {
-  sql.query("DELETE FROM calendar WHERE id = ?", journalId, (err, res) => {
+  sql.query("UPDATE calendar SET deleted = CURRENT_TIMESTAMP() WHERE id = ?", journalId, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

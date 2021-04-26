@@ -6,6 +6,7 @@ const Journal = function(journal) {
   this.text = journal.text;
   this.child_id = journal.child_id;
   this.user_id = journal.user_id;
+  this.nursery_id = journal.nursery_id;
 };
 
 Journal.create = (newJournal, result) => {
