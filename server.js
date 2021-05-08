@@ -8,7 +8,7 @@ const {SENDGRID_API} = require('./config/config');
 const app = express();
 
 // allow these addresses to access the server
-const corsWhitelist = ['http://localhost:8081', 'https://msc-nursery-app.herokuapp.com', 'http://localhost:8080'];
+const corsWhitelist = ['http://localhost:8081', 'https://msc-nursery-app.herokuapp.com', 'http://localhost:8080', 'capacitor://localhost'];
 
 const corsOptions = {
   origin: function (origin, callback) {

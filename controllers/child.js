@@ -135,6 +135,7 @@ exports.findChildrenByCarerId = (req, res) => {
   });
 };
 
+//find Journal by childId and date and return to frontend
 exports.findJournal = (req, res) => {
   Child.findJournal(req.params.childId, req.params.date, (err, data) => {
     if (err) {

@@ -40,7 +40,6 @@ exports.login = (req, res) => {
       });
     } else {
       if (user) {
-        console.log(user);
         // Generate an access token
         const accessToken = jwt.sign({
             userId: user.id,
