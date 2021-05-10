@@ -29,7 +29,6 @@ exports.addUser = (req, res) => {
     });
   }
 
-  console.log("user: ", req.body);
   // generate a temporary token
   const temporaryToken = passwordGenerator.generate({
     length: 10,

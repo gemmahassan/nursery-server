@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 const Child = require('../models/child');
 
 exports.createChild = (req, res) => {
@@ -39,8 +39,6 @@ exports.update = (req, res) => {
       message: "Content can not be empty!"
     });
   }
-
-  console.log("update: ", req.body);
 
   let image;
   if(req.file) {

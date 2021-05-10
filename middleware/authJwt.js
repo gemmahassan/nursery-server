@@ -3,7 +3,7 @@ const {secret} = require("../config/auth");
 
 verifyToken = (req, res, next) => {
   const token = req.headers['x-access-token'];
-  console.log(req.headers);
+
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
@@ -39,8 +39,6 @@ isSuperAdmin = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
-  console.log(req);
-  console.log("ROLE: ", req.role);
   if (req.role === "superadmin" || req.role === "admin") {
     next();
     return;

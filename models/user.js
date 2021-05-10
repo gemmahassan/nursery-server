@@ -247,7 +247,7 @@ User.login = (password, username, result) => {
     'FROM users ' +
     'INNER JOIN user_roles ' +
     'ON users.user_role_id = user_roles.id ' +
-    'WHERE users.username = ? ' +
+    'WHERE binary users.username = ? ' +
     "AND users.deleted IS NULL ",
     username,
     async (err, res) => {

@@ -46,21 +46,6 @@ Child.update = (childId, child, result) => {
   );
 }
 
-// Child.findAll = result => {
-//   sql.query('SELECT * FROM children ORDER BY surname', (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(err, null);
-//       return;
-//     }
-//
-//     if (res.length) {
-//       result(null, res);
-//       return;
-//     }
-//   });
-// };
-
 Child.findByNurseryId = (nurseryId, result) => {
   sql.query(
     'SELECT * FROM children ' +
@@ -140,10 +125,11 @@ Child.findJournal = (childId, date, result) => {
                          ON journal.type_id = journal_types.id
               INNER JOIN users
                          ON journal.user_id = users.id
-     WHERE journal.child_id = ${childId}
+     WHERE journal.child_id = ?
        AND journal.deleted IS NULL
-       AND DATE (journal.timestamp) = '${date}'
+       AND DATE (journal.timestamp) = ?
      ORDER BY journal.timestamp DESC`,
+    [childId, date],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
