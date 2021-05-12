@@ -1,7 +1,6 @@
 const User = require("../models/user");
 
 checkDuplicateUsername = (req, res, next) => {
-  console.log("middleware: ", req.body);
   User.findByUsername(req.body.email, (err, user) => {
     if (user) {
       res.status(400).send({

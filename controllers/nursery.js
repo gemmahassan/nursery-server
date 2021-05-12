@@ -138,10 +138,9 @@ exports.decline = (req, res) => {
 exports.purge = (req, res) => {
   Nursery.purge(req, (err, data) => {
       if (err) {
-        console.log(err);
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `No entry found with ID ${req.params.nurseryId}`
+            message: `No entries to delete`
           });
         } else {
           res.status(500).send({
