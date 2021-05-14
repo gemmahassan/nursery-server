@@ -1,16 +1,16 @@
-const {authJwt, verifySignUp} = require("../middleware");
-const user = require('../controllers/user');
+const { authJwt, verifySignUp } = require("../middleware");
+const user = require("../controllers/user");
 const multer = require("multer");
-const upload = multer({dest: 'uploads/'});
+const upload = multer({ dest: "uploads/" });
 
-module.exports = app => {
+module.exports = (app) => {
   app.post(
     "/users/add",
     [
       authJwt.verifyToken,
       authJwt.isAdmin || authJwt.isSuperAdmin,
       verifySignUp.checkDuplicateUsername,
-      upload.single('image')
+      upload.single("image"),
     ],
     user.addUser
   );

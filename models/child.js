@@ -1,11 +1,11 @@
-const sql = require('./db');
+const sql = require("./db");
 
 const Child = function (child) {
   this.first_name = child.first_name;
   this.surname = child.surname;
   this.image = child.image;
   this.nursery_id = child.nursery_id;
-  this.photo_permission = child.photo ? 1 : 0;
+  this.photo_permission = child.photo_permission ? 1 : 0;
 };
 
 Child.create = (newChild, result) => {
@@ -16,19 +16,25 @@ Child.create = (newChild, result) => {
       return;
     }
 
-    result(null, {id: res.insertId, ...newChild});
+    result(null, { id: res.insertId, ...newChild });
   });
 };
 
 Child.update = (childId, child, result) => {
   sql.query(
     "UPDATE children " +
-    "SET first_name = ?," +
-    "surname = ?, " +
-    "photo = ?, " +
-    "image = ? " +
-    "WHERE id = ?",
-    [child.first_name, child.surname, child.photo, child.image, childId],
+      "SET first_name = ?," +
+      "surname = ?, " +
+      "photo_permission = ?, " +
+      "image = ? " +
+      "WHERE id = ?",
+    [
+      child.first_name,
+      child.surname,
+      child.photo_permission,
+      child.image,
+      childId,
+    ],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -37,21 +43,21 @@ Child.update = (childId, child, result) => {
       }
 
       if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
-      result(null, {id: childId, ...child});
+      result(null, { id: childId, ...child });
     }
   );
-}
+};
 
 Child.findByNurseryId = (nurseryId, result) => {
   sql.query(
-    'SELECT * FROM children ' +
-    'WHERE nursery_id = ? ' +
-    'AND deleted IS NULL '+
-    'ORDER BY surname',
+    "SELECT * FROM children " +
+      "WHERE nursery_id = ? " +
+      "AND deleted IS NULL " +
+      "ORDER BY surname",
     nurseryId,
     (err, res) => {
       if (err) {
@@ -60,52 +66,62 @@ Child.findByNurseryId = (nurseryId, result) => {
         return;
       }
 
-      const response = res.map(child => {
+      const response = res.map((child) => {
         if (child.image) {
-          child.image = "data:image/png;base64," + Buffer.from(child.image, 'binary').toString('base64');
+          child.image =
+            "data:image/png;base64," +
+            Buffer.from(child.image, "binary").toString("base64");
         }
         return child;
       });
 
-      console.log(response);
       result(null, response);
-    });
+    }
+  );
 };
 
 Child.findById = (childId, result) => {
-  sql.query(`SELECT *
+  sql.query(
+    `SELECT *
              FROM children
              WHERE id = ? 
-             AND deleted IS NULL`, childId, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
+             AND deleted IS NULL`,
+    childId,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
 
-    if (res.length) {
-      result(null, res[0]);
-      return;
+      if (res.length) {
+        result(null, res[0]);
+        return;
+      }
     }
-  });
+  );
 };
 
 Child.findByCarerId = (carerId, result) => {
-  sql.query(`SELECT *
+  sql.query(
+    `SELECT *
              FROM children
              WHERE carer_user_id = ? 
-             AND deleted IS NULL`, carerId, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
+             AND deleted IS NULL`,
+    carerId,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
 
-    if (res.length) {
-      result(null, res);
-      return;
+      if (res.length) {
+        result(null, res);
+        return;
+      }
     }
-  });
+  );
 };
 
 Child.findJournal = (childId, date, result) => {
@@ -137,29 +153,32 @@ Child.findJournal = (childId, date, result) => {
         return;
       }
 
-      const response = res.map(entry => {
+      const response = res.map((entry) => {
         if (entry.image) {
-          entry.image = "data:image/png;base64," + Buffer.from(entry.image, 'binary').toString('base64');
+          entry.image =
+            "data:image/png;base64," +
+            Buffer.from(entry.image, "binary").toString("base64");
         }
         return entry;
       });
       result(null, response);
-    });
+    }
+  );
 };
 
 Child.delete = (id, result) => {
   sql.query(
     "START TRANSACTION;" +
-    "UPDATE children " +
-    "SET deleted = CURRENT_TIMESTAMP() " +
-    "WHERE id = ? ;" +
-    "UPDATE carers " +
-    "SET deleted = CURRENT_TIMESTAMP() " +
-    "WHERE child_id = ?; " +
-    "UPDATE journal " +
-    "SET deleted = CURRENT_TIMESTAMP() " +
-    "WHERE child_id = ?; " +
-    "COMMIT;",
+      "UPDATE children " +
+      "SET deleted = CURRENT_TIMESTAMP() " +
+      "WHERE id = ? ;" +
+      "UPDATE carers " +
+      "SET deleted = CURRENT_TIMESTAMP() " +
+      "WHERE child_id = ?; " +
+      "UPDATE journal " +
+      "SET deleted = CURRENT_TIMESTAMP() " +
+      "WHERE child_id = ?; " +
+      "COMMIT;",
     [id, id, id],
     (err, res) => {
       if (err) {
@@ -169,13 +188,13 @@ Child.delete = (id, result) => {
       }
 
       if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
       result(null, res);
-    });
+    }
+  );
 };
-
 
 module.exports = Child;

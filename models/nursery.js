@@ -1,4 +1,4 @@
-const sql = require('./db');
+const sql = require("./db");
 
 const Nursery = function (nursery) {
   this.name = nursery.name;
@@ -25,15 +25,13 @@ Nursery.create = (newNursery, result) => {
       return;
     }
 
-    result(null, {id: res.insertId, ...newNursery});
+    result(null, { id: res.insertId, ...newNursery });
   });
 };
 
 Nursery.approve = (nurseryId, result) => {
   sql.query(
-    "UPDATE nurseries " +
-    "SET confirmed = 1 " +
-    "WHERE id = ?",
+    "UPDATE nurseries " + "SET confirmed = 1 " + "WHERE id = ?",
     nurseryId,
     (err, res) => {
       if (err) {
@@ -42,20 +40,22 @@ Nursery.approve = (nurseryId, result) => {
         return;
       }
       if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
-      result(null, {id: nurseryId, ...nurseryId});
+      result(null, { id: nurseryId, ...nurseryId });
     }
   );
-}
+};
 
 Nursery.decline = (nurseryId, result) => {
   sql.query(
-    "DELETE FROM nurseries " +
-    "WHERE id = ?",
-    nurseryId,
+    "START TRANSACTION; " +
+      "DELETE FROM users WHERE nursery_id = ?; " +
+      "DELETE FROM nurseries WHERE id = ?; " +
+      "COMMIT; ",
+    [nurseryId, nurseryId],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -63,25 +63,25 @@ Nursery.decline = (nurseryId, result) => {
         return;
       }
       if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
-      result(null, {id: nurseryId, ...nurseryId});
+      result(null, { id: nurseryId, ...nurseryId });
     }
   );
-}
+};
 
 Nursery.purge = (req, result) => {
   sql.query(
     "START TRANSACTION; " +
-    "DELETE FROM journal WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
-    "DELETE FROM carers WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
-    "DELETE FROM users WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
-    "DELETE FROM children WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
-    "DELETE FROM calendar WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
-    "DELETE FROM nurseries WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
-    "COMMIT;",
+      "DELETE FROM journal WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
+      "DELETE FROM carers WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
+      "DELETE FROM users WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
+      "DELETE FROM children WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
+      "DELETE FROM calendar WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
+      "DELETE FROM nurseries WHERE deleted < (NOW() - INTERVAL 90 DAY); " +
+      "COMMIT;",
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -90,26 +90,28 @@ Nursery.purge = (req, result) => {
       }
 
       let totalAffectedRows = 0;
-      res.forEach(el => {
+      res.forEach((el) => {
         totalAffectedRows += el.affectedRows;
-      })
+      });
 
       if (totalAffectedRows === 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
       result(null, res);
     }
   );
-}
+};
 
 Nursery.getAllChildren = (nurseryId, result) => {
-  sql.query('' +
-    'SELECT * FROM children ' +
-    'WHERE nursery_id = ? ' +
-    'AND deleted IS NULL ' +
-    'ORDER BY surname', nurseryId,
+  sql.query(
+    "" +
+      "SELECT * FROM children " +
+      "WHERE nursery_id = ? " +
+      "AND deleted IS NULL " +
+      "ORDER BY surname",
+    nurseryId,
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -117,122 +119,140 @@ Nursery.getAllChildren = (nurseryId, result) => {
         return;
       }
 
-      const response = res.map(child => {
+      const response = res.map((child) => {
         if (child.image) {
-          child.image = "data:image/png;base64," + Buffer.from(child.image, 'binary').toString('base64');
+          child.image =
+            "data:image/png;base64," +
+            Buffer.from(child.image, "binary").toString("base64");
         }
         return child;
       });
       result(null, response);
-    });
+    }
+  );
 };
 
-Nursery.getAllConfirmed = result => {
+Nursery.getAllConfirmed = (result) => {
   sql.query(
     "SELECT * FROM nurseries " +
-    "WHERE confirmed = 1 " +
-    "AND deleted IS NULL " +
-    "ORDER BY name", (err, res) => {
+      "WHERE confirmed = 1 " +
+      "AND deleted IS NULL " +
+      "ORDER BY name",
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
         return;
       }
 
-      const response = res.map(nursery => {
+      const response = res.map((nursery) => {
         if (nursery.image) {
-          nursery.image = "data:image/png;base64," + Buffer.from(nursery.image, 'binary').toString('base64');
+          nursery.image =
+            "data:image/png;base64," +
+            Buffer.from(nursery.image, "binary").toString("base64");
         }
         return nursery;
       });
       result(null, response);
-    });
+    }
+  );
 };
 
-Nursery.getAllPending = result => {
+Nursery.getAllPending = (result) => {
   sql.query(
     "SELECT * FROM nurseries " +
-    "WHERE confirmed = 0 " +
-    "AND deleted IS NULL " +
-    "ORDER BY name", (err, res) => {
+      "WHERE confirmed = 0 " +
+      "AND deleted IS NULL " +
+      "ORDER BY name",
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
         return;
       }
 
-      const response = res.map(nursery => {
+      const response = res.map((nursery) => {
         if (nursery.image) {
-          nursery.image = "data:image/png;base64," + Buffer.from(nursery.image, 'binary').toString('base64');
+          nursery.image =
+            "data:image/png;base64," +
+            Buffer.from(nursery.image, "binary").toString("base64");
         }
         return nursery;
       });
       result(null, response);
-    });
+    }
+  );
 };
 
-Nursery.getAll = result => {
+Nursery.getAll = (result) => {
   sql.query(
-    "SELECT * FROM nurseries " +
-    "WHERE deleted IS NULL " +
-    "ORDER BY name", (err, res) => {
+    "SELECT * FROM nurseries " + "WHERE deleted IS NULL " + "ORDER BY name",
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
         return;
       }
 
-      const response = res.map(nursery => {
+      const response = res.map((nursery) => {
         if (nursery.image) {
-          nursery.image = "data:image/png;base64," + Buffer.from(nursery.image, 'binary').toString('base64');
+          nursery.image =
+            "data:image/png;base64," +
+            Buffer.from(nursery.image, "binary").toString("base64");
         }
         return nursery;
       });
       result(null, response);
-    });
+    }
+  );
 };
-
 
 Nursery.findById = (nurseryId, result) => {
-  sql.query("SELECT * FROM nurseries WHERE id = ? AND deleted IS NULL", nurseryId, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-
-    if (res.length) {
-      if (res[0].image) {
-        res[0].image = "data:image/png;base64," + Buffer.from(res[0].image, 'binary').toString('base64');
+  sql.query(
+    "SELECT * FROM nurseries WHERE id = ? AND deleted IS NULL",
+    nurseryId,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
       }
-      result(null, res[0]);
-      return;
+
+      if (res.length) {
+        if (res[0].image) {
+          res[0].image =
+            "data:image/png;base64," +
+            Buffer.from(res[0].image, "binary").toString("base64");
+        }
+        result(null, res[0]);
+        return;
+      }
     }
-  });
+  );
 };
 
 Nursery.deactivate = (nurseryId, result) => {
   sql.query(
     "START TRANSACTION; " +
-    "UPDATE nurseries " +
-    "SET nurseries.deleted = CURRENT_TIMESTAMP() " +
-    "WHERE nurseries.id = ?;" +
-    "UPDATE children " +
-    "SET children.deleted = CURRENT_TIMESTAMP() " +
-    "WHERE children.nursery_id = ?;" +
-    "UPDATE users " +
-    "SET users.deleted = CURRENT_TIMESTAMP() " +
-    "WHERE users.nursery_id = ?;" +
-    "UPDATE calendar " +
-    "SET calendar.deleted = CURRENT_TIMESTAMP() " +
-    "WHERE calendar.nursery_id = ?;" +
-    "UPDATE carers " +
-    "SET carers.deleted = CURRENT_TIMESTAMP() " +
-    "WHERE carers.nursery_id = ?;" +
-    "UPDATE journal " +
-    "SET journal.deleted = CURRENT_TIMESTAMP() " +
-    "WHERE journal.nursery_id = ?;" +
-    "COMMIT; ",
+      "UPDATE nurseries " +
+      "SET nurseries.deleted = CURRENT_TIMESTAMP() " +
+      "WHERE nurseries.id = ?;" +
+      "UPDATE children " +
+      "SET children.deleted = CURRENT_TIMESTAMP() " +
+      "WHERE children.nursery_id = ?;" +
+      "UPDATE users " +
+      "SET users.deleted = CURRENT_TIMESTAMP() " +
+      "WHERE users.nursery_id = ?;" +
+      "UPDATE calendar " +
+      "SET calendar.deleted = CURRENT_TIMESTAMP() " +
+      "WHERE calendar.nursery_id = ?;" +
+      "UPDATE carers " +
+      "SET carers.deleted = CURRENT_TIMESTAMP() " +
+      "WHERE carers.nursery_id = ?;" +
+      "UPDATE journal " +
+      "SET journal.deleted = CURRENT_TIMESTAMP() " +
+      "WHERE journal.nursery_id = ?;" +
+      "COMMIT; ",
     [nurseryId, nurseryId, nurseryId, nurseryId, nurseryId, nurseryId],
     (err, res) => {
       if (err) {
@@ -246,10 +266,9 @@ Nursery.deactivate = (nurseryId, result) => {
         return;
       }
 
-      result(null, {id: nurseryId, ...nurseryId});
+      result(null, { id: nurseryId, ...nurseryId });
     }
-  )
-  ;
+  );
 };
 
 module.exports = Nursery;

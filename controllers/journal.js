@@ -1,11 +1,11 @@
 const fs = require("fs");
-const Journal = require('../models/journal');
+const Journal = require("../models/journal");
 
 exports.addEntry = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Content can not be empty!",
     });
   }
 
@@ -28,8 +28,7 @@ exports.addEntry = (req, res) => {
   Journal.create(entry, (err, data) => {
     if (err)
       res.status(500).send({
-        message:
-          err.message || "An error occurred while adding the entry."
+        message: err.message || "An error occurred while adding the entry.",
       });
     else res.send(data);
   });
@@ -39,11 +38,9 @@ exports.update = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Content can not be empty!",
     });
   }
-
-  console.log(req.body);
 
   let image;
   if (req.file) {
@@ -59,21 +56,19 @@ exports.update = (req, res) => {
     user_id: req.body.user_id,
   });
 
-  Journal.update(req.params.journalId, entry,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `No entry found with ID ${req.params.journalId}`
-          });
-        } else {
-          res.status(500).send({
-            message: `Error updating Journal with ID ${req.params.journalId}`
-          })
-        }
-      } else res.send(data);
-    }
-  );
+  Journal.update(req.params.journalId, entry, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `No entry found with ID ${req.params.journalId}`,
+        });
+      } else {
+        res.status(500).send({
+          message: `Error updating Journal with ID ${req.params.journalId}`,
+        });
+      }
+    } else res.send(data);
+  });
 };
 
 exports.delete = (req, res) => {
@@ -81,13 +76,13 @@ exports.delete = (req, res) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Journal entry not found with ID ${req.params.journalId}`
+          message: `Journal entry not found with ID ${req.params.journalId}`,
         });
       } else {
         res.status(500).send({
-          message: `Could not delete journal entry with ID ${req.params.journalId}`
+          message: `Could not delete journal entry with ID ${req.params.journalId}`,
         });
       }
-    } else res.send({message: "Journal entry was deleted successfully!"});
+    } else res.send({ message: "Journal entry was deleted successfully!" });
   });
 };

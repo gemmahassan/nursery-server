@@ -4,7 +4,7 @@ checkDuplicateUsername = (req, res, next) => {
   User.findByUsername(req.body.email, (err, user) => {
     if (user) {
       res.status(400).send({
-        message: "Failed! Username is already in use!"
+        message: "Failed! Username is already in use!",
       });
       return;
     }

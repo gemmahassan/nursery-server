@@ -1,4 +1,4 @@
-module.exports = app => {
+module.exports = (app) => {
   const journalType = require("../controllers/journal-type");
 
   app.get("/journal/types", journalType.getAll);

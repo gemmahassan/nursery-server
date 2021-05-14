@@ -1,10 +1,10 @@
-const JournalType = require('../models/journal-type');
+const JournalType = require("../models/journal-type");
 
 exports.getAll = (req, res) => {
-  JournalType.getAll( (err, data) => {
+  JournalType.getAll((err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || `Error retrieving journal types`
+        message: err.message || `Error retrieving journal types`,
       });
     else res.send(data);
   });

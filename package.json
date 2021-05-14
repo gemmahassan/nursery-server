@@ -29,7 +29,8 @@
     "mysql": "^2.18.1",
     "nodemailer": "^6.5.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.0"
   },
   "devDependencies": {
     "uuid": "^8.3.2"

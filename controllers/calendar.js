@@ -1,15 +1,15 @@
-const Calendar = require('../models/calendar');
+const Calendar = require("../models/calendar");
 
 exports.findByNurseryId = (req, res) => {
   Calendar.findByNurseryId(req.params.nurseryId, (err, data) => {
     if (err) {
-      if (err.kind === 'not_found') {
+      if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found with nursery ID ${req.params.nurseryId}`
+          message: `Not found with nursery ID ${req.params.nurseryId}`,
         });
       } else {
         res.status(500).send({
-          message: `Error retrieving calendar entries with nursery ID ${req.params.nurseryId}`
+          message: `Error retrieving calendar entries with nursery ID ${req.params.nurseryId}`,
         });
       }
     } else res.send(data);
@@ -18,14 +18,14 @@ exports.findByNurseryId = (req, res) => {
 
 exports.addEntry = (req, res) => {
   // only admin and staff users have permission to add a journal entry
-  if (role !== 'admin') {
+  if (role !== "admin") {
     return res.sendStatus(403);
   }
 
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Content can not be empty!",
     });
   }
 
@@ -39,8 +39,7 @@ exports.addEntry = (req, res) => {
   Calendar.create(entry, (err, data) => {
     if (err)
       res.status(500).send({
-        message:
-          err.message || "An error occurred while adding the entry."
+        message: err.message || "An error occurred while adding the entry.",
       });
     else res.send(data);
   });
@@ -48,28 +47,30 @@ exports.addEntry = (req, res) => {
 
 exports.update = (req, res) => {
   // only admin and staff users have permission to update a journal entry
-  if (role !== 'admin') {
+  if (role !== "admin") {
     return res.sendStatus(403);
   }
 
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Content can not be empty!",
     });
   }
 
-  Calendar.update(req.params.calendarId, new Calendar(req.body),
+  Calendar.update(
+    req.params.calendarId,
+    new Calendar(req.body),
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `No entry found with ID ${req.params.calendarId}`
+            message: `No entry found with ID ${req.params.calendarId}`,
           });
         } else {
           res.status(500).send({
-            message: `Error updating Journal with ID ${req.params.calendarId}`
-          })
+            message: `Error updating Journal with ID ${req.params.calendarId}`,
+          });
         }
       } else res.send(data);
     }
@@ -78,7 +79,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
   // only admin and staff users have permission to delete a journal entry
-  if (role !== 'admin') {
+  if (role !== "admin") {
     return res.sendStatus(403);
   }
 
@@ -86,13 +87,13 @@ exports.delete = (req, res) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Calendar entry not found with ID ${req.params.calendarId}`
+          message: `Calendar entry not found with ID ${req.params.calendarId}`,
         });
       } else {
         res.status(500).send({
-          message: `Could not delete calendar entry with ID ${req.params.calendarId}`
+          message: `Could not delete calendar entry with ID ${req.params.calendarId}`,
         });
       }
-    } else res.send({message: "calendar entry was deleted successfully!"});
+    } else res.send({ message: "calendar entry was deleted successfully!" });
   });
 };

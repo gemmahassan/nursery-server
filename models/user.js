@@ -1,5 +1,5 @@
-const sql = require('./db');
-const bcrypt = require('bcrypt');
+const sql = require("./db");
+const bcrypt = require("bcrypt");
 
 const User = function (user) {
   this.first_name = user.first_name;
@@ -10,13 +10,13 @@ const User = function (user) {
   this.token = user.token;
   this.image = user.image;
   switch (user.role) {
-    case 'admin':
+    case "admin":
       this.user_role_id = 500;
       return;
-    case 'staff':
+    case "staff":
       this.user_role_id = 501;
       return;
-    case 'carer':
+    case "carer":
       this.user_role_id = 502;
       return;
   }
@@ -30,17 +30,17 @@ User.create = (newUser, result) => {
       return;
     }
 
-    result(null, {id: res.insertId, ...newUser});
+    result(null, { id: res.insertId, ...newUser });
   });
 };
 
 User.register = (userId, password, result) => {
   sql.query(
     "UPDATE users " +
-    "SET password = ?," +
-    "activated = 1, " +
-    "token = NULL " +
-    "WHERE id = ?",
+      "SET password = ?," +
+      "activated = 1, " +
+      "token = NULL " +
+      "WHERE id = ?",
     [password, userId],
     (err, res) => {
       if (err) {
@@ -50,20 +50,18 @@ User.register = (userId, password, result) => {
       }
 
       if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
-      result(null, {id: userId});
-    });
+      result(null, { id: userId });
+    }
+  );
 };
 
 User.update = (userId, user, result) => {
   sql.query(
-    "UPDATE users " +
-    "SET first_name = ?," +
-    "surname = ? " +
-    "WHERE id = ?",
+    "UPDATE users " + "SET first_name = ?," + "surname = ? " + "WHERE id = ?",
     [user.first_name, user.surname, userId],
     (err, res) => {
       if (err) {
@@ -73,39 +71,40 @@ User.update = (userId, user, result) => {
       }
 
       if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
-      result(null, {id: userId, ...user});
-    });
+      result(null, { id: userId, ...user });
+    }
+  );
 };
 
 User.findById = (userId, result) => {
-  sql.query(
-    'SELECT * FROM users WHERE users.id = ?', userId, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
-
-      if (res.length) {
-        result(null, res[0]);
-        return;
-      }
-    });
-};
-
-User.findByUsername = (username, result) => {
-  sql.query('SELECT * FROM users WHERE username = ?', username, (err, res) => {
+  sql.query("SELECT * FROM users WHERE users.id = ?", userId, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
 
-    console.log("res: ", res);
+    if (res.length) {
+      result(null, res[0]);
+      return;
+    } else {
+      result({ kind: "not_found" }, null);
+      return;
+    }
+  });
+};
+
+User.findByUsername = (username, result) => {
+  sql.query("SELECT * FROM users WHERE username = ?", username, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
 
     // return result when matching username is found
     if (res.length) {
@@ -120,7 +119,7 @@ User.findByUsername = (username, result) => {
 };
 
 User.findAdmin = (result) => {
-  sql.query('SELECT * FROM users WHERE user_role_id = ?', 500, (err, res) => {
+  sql.query("SELECT * FROM users WHERE user_role_id = ?", 500, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -130,38 +129,48 @@ User.findAdmin = (result) => {
     if (res.length) {
       result(null, res[0]);
       return;
+    } else {
+      result({ kind: "not_found" }, null);
+      return;
     }
   });
 };
 
 User.findStaffByNurseryId = (nurseryId, result) => {
   sql.query(
-    'SELECT * FROM users ' +
-    'WHERE (user_role_id = ?  OR user_role_id = ?) ' +
-    'AND nursery_id = ? ' +
-    'AND deleted IS NULL ' +
-    'ORDER BY surname', [500, 501, nurseryId], (err, res) => {
+    "SELECT * FROM users " +
+      "WHERE (user_role_id = ?  OR user_role_id = ?) " +
+      "AND nursery_id = ? " +
+      "AND deleted IS NULL " +
+      "ORDER BY surname",
+    [500, 501, nurseryId],
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
         return;
       }
-      console.log("res: ", res);
 
       if (res.length) {
         result(null, res);
         return;
+      } else {
+        result({ kind: "not_found" }, null);
+        return;
       }
-    });
+    }
+  );
 };
 
 User.findCarersByNurseryId = (nurseryId, result) => {
   sql.query(
-    'SELECT * FROM users ' +
-    'WHERE user_role_id = ? ' +
-    'AND nursery_id = ? ' +
-    'AND deleted IS NULL ' +
-    'ORDER BY surname', [502, nurseryId], (err, res) => {
+    "SELECT * FROM users " +
+      "WHERE user_role_id = ? " +
+      "AND nursery_id = ? " +
+      "AND deleted IS NULL " +
+      "ORDER BY surname",
+    [502, nurseryId],
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -171,93 +180,84 @@ User.findCarersByNurseryId = (nurseryId, result) => {
       if (res.length) {
         result(null, res);
         return;
+      } else {
+        result({ kind: "not_found" }, null);
+        return;
       }
-    });
+    }
+  );
 };
 
 User.findUserByToken = (token, result) => {
-  console.log("in model");
-  sql.query('SELECT * FROM users WHERE token = ? AND activated = 0', token, (err, res) => {
-    console.log("executing query");
-    console.log(token);
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
+  sql.query(
+    "SELECT * FROM users WHERE token = ? AND activated = 0",
+    token,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
 
-    console.log(res.length);
-    if (res.length) {
-      console.log(res);
-      result(null, res);
-      return;
-    } else {
-      result({kind: "not_found"}, null);
-      return;
+      if (res.length) {
+        result(null, res);
+        return;
+      } else {
+        result({ kind: "not_found" }, null);
+        return;
+      }
     }
-  });
+  );
 };
 
 User.findChildren = (userId, result) => {
   sql.query(
-    'SELECT children.id, ' +
-    'children.first_name, ' +
-    'children.surname ' +
-    'FROM carers ' +
-    'INNER JOIN children ' +
-    'ON carers.child_id = children.id ' +
-    'WHERE carers.user_id = ? ' +
-    'AND children.deleted IS NULL ' +
-    'ORDER BY children.surname', userId, (err, res) => {
-      console.log(res);
+    "SELECT children.id, " +
+      "children.first_name, " +
+      "children.surname " +
+      "FROM carers " +
+      "INNER JOIN children " +
+      "ON carers.child_id = children.id " +
+      "WHERE carers.user_id = ? " +
+      "AND children.deleted IS NULL " +
+      "ORDER BY children.surname",
+    userId,
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
         return;
       }
 
-      console.log(res);
       if (res.length) {
         result(null, res);
         return;
+      } else {
+        result({ kind: "not_found" }, null);
+        return;
       }
-    });
+    }
+  );
 };
-
-// User.findCarers = (username, result) => {
-//   sql.query('SELECT * FROM users WHERE user_role_id = 502 AND', (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(err, null);
-//       return;
-//     }
-//
-//     if (res.length) {
-//       result(null, res[0]);
-//       return;
-//     }
-//   });
-// };
-
 
 User.login = (password, username, result) => {
   sql.query(
-    'SELECT ' +
-    'users.id, ' +
-    'users.activated, ' +
-    'users.username, ' +
-    'users.first_name, ' +
-    'users.surname, ' +
-    'users.password, ' +
-    'users.user_role_id, ' +
-    'users.nursery_id, ' +
-    'users.image, ' +
-    'user_roles.role ' +
-    'FROM users ' +
-    'INNER JOIN user_roles ' +
-    'ON users.user_role_id = user_roles.id ' +
-    'WHERE binary users.username = ? ' +
-    "AND users.deleted IS NULL ",
+    "SELECT " +
+      "users.id, " +
+      "users.activated, " +
+      "users.username, " +
+      "users.first_name, " +
+      "users.surname, " +
+      "users.password, " +
+      "users.user_role_id, " +
+      "users.nursery_id, " +
+      "users.image, " +
+      "user_roles.role " +
+      "FROM users " +
+      "INNER JOIN user_roles " +
+      "ON users.user_role_id = user_roles.id " +
+      "WHERE binary users.username = ? " +
+      "AND users.deleted IS NULL ",
     username,
     async (err, res) => {
       if (err) {
@@ -273,28 +273,29 @@ User.login = (password, username, result) => {
           result(null, res[0]);
           return;
         } else {
-          console.log('username and password do not match');
+          console.log("username and password do not match");
           result(null);
           return;
         }
       } else {
-        console.log('no user found');
+        console.log("no user found");
         result(null);
         return;
       }
-    });
+    }
+  );
 };
 
 User.delete = (id, result) => {
   sql.query(
     "START TRANSACTION; " +
-    "UPDATE nursery_journal.users " +
-    "SET deleted = current_timestamp() " +
-    "WHERE id = ?; " +
-    "UPDATE nursery_journal.carers " +
-    "SET deleted = current_timestamp() " +
-    "WHERE user_id = ?; " +
-    "COMMIT;",
+      "UPDATE nursery_journal.users " +
+      "SET deleted = current_timestamp() " +
+      "WHERE id = ?; " +
+      "UPDATE nursery_journal.carers " +
+      "SET deleted = current_timestamp() " +
+      "WHERE user_id = ?; " +
+      "COMMIT;",
     [id, id],
     (err, res) => {
       if (err) {
@@ -304,13 +305,13 @@ User.delete = (id, result) => {
       }
 
       if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
       result(null, res);
-    });
+    }
+  );
 };
-
 
 module.exports = User;

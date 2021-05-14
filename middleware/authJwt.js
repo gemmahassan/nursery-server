@@ -1,14 +1,14 @@
 const jwt = require("jsonwebtoken");
-const {secret} = require("../config/auth");
+const { secret } = require("../config/auth");
 
 verifyToken = (req, res, next) => {
-  const token = req.headers['x-access-token'];
+  const token = req.headers["x-access-token"];
 
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
         return res.status(401).send({
-          message: "Unauthorised"
+          message: "Unauthorised",
         });
       }
 
@@ -22,7 +22,7 @@ verifyToken = (req, res, next) => {
     });
   } else {
     res.status(401).send({
-      message: "No token provided"
+      message: "No token provided",
     });
   }
 };
@@ -34,7 +34,7 @@ isSuperAdmin = (req, res, next) => {
   }
 
   res.status(403).send({
-    message: "Requires superadmin permission"
+    message: "Requires superadmin permission",
   });
 };
 
@@ -45,7 +45,7 @@ isAdmin = (req, res, next) => {
   }
 
   res.status(403).send({
-    message: "Requires admin permission"
+    message: "Requires admin permission",
   });
 };
 
@@ -56,7 +56,7 @@ isCarer = (req, res, next) => {
   }
 
   res.status(403).send({
-    message: "Requires carer permission"
+    message: "Requires carer permission",
   });
 };
 
@@ -67,7 +67,7 @@ isStaff = (req, res, next) => {
   }
 
   res.status(403).send({
-    message: "Requires staff permission"
+    message: "Requires staff permission",
   });
 };
 
@@ -80,4 +80,3 @@ const authJwt = {
 };
 
 module.exports = authJwt;
-

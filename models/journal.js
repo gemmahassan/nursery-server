@@ -1,6 +1,6 @@
-const sql = require('./db');
+const sql = require("./db");
 
-const Journal = function(journal) {
+const Journal = function (journal) {
   this.type_id = journal.type_id;
   this.image = journal.image;
   this.text = journal.text;
@@ -24,13 +24,20 @@ Journal.create = (newJournal, result) => {
 Journal.update = (journalId, journal, result) => {
   sql.query(
     "UPDATE journal " +
-    "SET child_id = ?," +
-    "type_id = ?," +
-    "image = ?," +
-    "text = ?, " +
-    "user_id = ? " +
-    "WHERE id = ?",
-    [journal.child_id, journal.type_id, journal.image, journal.text, journal.user_id, journalId],
+      "SET child_id = ?," +
+      "type_id = ?," +
+      "image = ?," +
+      "text = ?, " +
+      "user_id = ? " +
+      "WHERE id = ?",
+    [
+      journal.child_id,
+      journal.type_id,
+      journal.image,
+      journal.text,
+      journal.user_id,
+      journalId,
+    ],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -39,33 +46,34 @@ Journal.update = (journalId, journal, result) => {
       }
 
       if (res.affectedRows == 0) {
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
         return;
       }
 
-      result(null, {id: journalId, ...journal});
+      result(null, { id: journalId, ...journal });
     }
   );
-}
+};
 
 Journal.remove = (id, result) => {
   sql.query(
-    "UPDATE journal " +
-    "SET deleted = CURRENT_TIMESTAMP() " +
-    "WHERE id = ? ", id, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
+    "UPDATE journal " + "SET deleted = CURRENT_TIMESTAMP() " + "WHERE id = ? ",
+    id,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
 
-    if (res.affectedRows == 0) {
-      result({kind: "not_found"}, null);
-      return;
-    }
+      if (res.affectedRows == 0) {
+        result({ kind: "not_found" }, null);
+        return;
+      }
 
-    result(null, res);
-  });
+      result(null, res);
+    }
+  );
 };
 
 module.exports = Journal;

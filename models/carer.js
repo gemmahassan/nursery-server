@@ -1,4 +1,4 @@
-const sql = require('./db');
+const sql = require("./db");
 
 const Carer = function (carer) {
   this.child_id = carer.child_id;
@@ -14,7 +14,7 @@ Carer.create = (newCarer, result) => {
       return;
     }
 
-    result(null, {id: res.insertId, ...newCarer});
+    result(null, { id: res.insertId, ...newCarer });
   });
 };
 

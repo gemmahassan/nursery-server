@@ -1,5 +1,5 @@
-const mysql = require('mysql');
-const dbConfig = require('../config/db-config');
+const mysql = require("mysql");
+const dbConfig = require("../config/db-config");
 
 const connection = mysql.createConnection({
   pool: dbConfig.POOL,
@@ -12,9 +12,9 @@ const connection = mysql.createConnection({
   multipleStatements: dbConfig.MULTIPLE_STATEMENTS,
 });
 
-connection.connect(error => {
+connection.connect((error) => {
   if (error) throw error;
-  console.log('Successfully connected to the nursery database');
+  console.log("Successfully connected to the nursery database");
 });
 
 module.exports = connection;

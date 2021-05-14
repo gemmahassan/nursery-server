@@ -1,11 +1,11 @@
 const fs = require("fs");
-const Nursery = require('../models/nursery');
+const Nursery = require("../models/nursery");
 
 exports.getAllConfirmedNurseries = (req, res) => {
   Nursery.getAllConfirmed((err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || `Error retrieving nurseries`
+        message: err.message || `Error retrieving nurseries`,
       });
     else res.send(data);
   });
@@ -15,7 +15,7 @@ exports.getAllPendingNurseries = (req, res) => {
   Nursery.getAllPending((err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || `Error retrieving nurseries`
+        message: err.message || `Error retrieving nurseries`,
       });
     else res.send(data);
   });
@@ -25,7 +25,7 @@ exports.getAll = (req, res) => {
   Nursery.getAll((err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || `Error retrieving nurseries`
+        message: err.message || `Error retrieving nurseries`,
       });
     else res.send(data);
   });
@@ -34,13 +34,13 @@ exports.getAll = (req, res) => {
 exports.getNurseryById = (req, res) => {
   Nursery.findById(req.params.nurseryId, (err, data) => {
     if (err) {
-      if (err.kind === 'not_found') {
+      if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found with nursery ID ${req.params.nurseryId}`
+          message: `Not found with nursery ID ${req.params.nurseryId}`,
         });
       } else {
         res.status(500).send({
-          message: `Error retrieving Nursery with nursery ID ${req.params.nurseryId}`
+          message: `Error retrieving Nursery with nursery ID ${req.params.nurseryId}`,
         });
       }
     } else res.send(data);
@@ -50,13 +50,13 @@ exports.getNurseryById = (req, res) => {
 exports.getAllChildren = (req, res) => {
   Nursery.getAllChildren(req.params.nurseryId, (err, data) => {
     if (err) {
-      if (err.kind === 'not_found') {
+      if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found with nursery ID ${req.params.nurseryId}`
+          message: `Not found with nursery ID ${req.params.nurseryId}`,
         });
       } else {
         res.status(500).send({
-          message: `Error retrieving Children with nursery ID ${req.params.nurseryId}`
+          message: `Error retrieving Children with nursery ID ${req.params.nurseryId}`,
         });
       }
     } else res.send(data);
@@ -67,7 +67,7 @@ exports.signup = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Content can not be empty!",
     });
   }
   const image = fs.readFileSync(req.file.path);
@@ -92,98 +92,88 @@ exports.signup = (req, res) => {
   Nursery.create(nursery, (err, data) => {
     if (err)
       res.status(500).send({
-        message:
-          err.message || "An error occurred while adding the nursery."
+        message: err.message || "An error occurred while adding the nursery.",
       });
     else res.send(data);
   });
 };
 
 exports.approve = (req, res) => {
-  Nursery.approve(req.params.nurseryId,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `No entry found with ID ${req.params.nurseryId}`
-          });
-        } else {
-          res.status(500).send({
-            message: `Error updating Nursery with ID ${req.params.nurseryId}`
-          })
-        }
-      } else res.send(data);
-    }
-  );
+  Nursery.approve(req.params.nurseryId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `No entry found with ID ${req.params.nurseryId}`,
+        });
+      } else {
+        res.status(500).send({
+          message: `Error updating Nursery with ID ${req.params.nurseryId}`,
+        });
+      }
+    } else res.send(data);
+  });
 };
 
 exports.decline = (req, res) => {
-  Nursery.decline(req.params.nurseryId,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `No entry found with ID ${req.params.nurseryId}`
-          });
-        } else {
-          res.status(500).send({
-            message: `Error deleting Nursery with ID ${req.params.nurseryId}`
-          })
-        }
-      } else res.send(data);
-    }
-  );
+  Nursery.decline(req.params.nurseryId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `No entry found with ID ${req.params.nurseryId}`,
+        });
+      } else {
+        res.status(500).send({
+          message: `Error deleting Nursery with ID ${req.params.nurseryId}`,
+        });
+      }
+    } else res.send(data);
+  });
 };
 
 exports.purge = (req, res) => {
   Nursery.purge(req, (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `No entries to delete`
-          });
-        } else {
-          res.status(500).send({
-            message: `Error deleting Nursery with ID ${req.params.nurseryId}`
-          })
-        }
-      } else res.send(data);
-    }
-  );
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `No entries to delete`,
+        });
+      } else {
+        res.status(500).send({
+          message: `Error deleting Nursery with ID ${req.params.nurseryId}`,
+        });
+      }
+    } else res.send(data);
+  });
 };
 
 exports.deactivate = (req, res) => {
-  Nursery.deactivate(req.params.nurseryId,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `No entry found with ID ${req.params.nurseryId}`
-          });
-        } else {
-          res.status(500).send({
-            message: `Error deleting Nursery with ID ${req.params.nurseryId}`
-          })
-        }
-      } else res.send(data);
-    }
-  );
+  Nursery.deactivate(req.params.nurseryId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `No entry found with ID ${req.params.nurseryId}`,
+        });
+      } else {
+        res.status(500).send({
+          message: `Error deleting Nursery with ID ${req.params.nurseryId}`,
+        });
+      }
+    } else res.send(data);
+  });
 };
 
 exports.delete = (req, res) => {
-  Nursery.delete(req.params.nurseryId,
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `No entry found with ID ${req.params.nurseryId}`
-          });
-        } else {
-          res.status(500).send({
-            message: `Error deleting Nursery with ID ${req.params.nurseryId}`
-          })
-        }
-      } else res.send(data);
-    }
-  );
+  Nursery.delete(req.params.nurseryId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `No entry found with ID ${req.params.nurseryId}`,
+        });
+      } else {
+        res.status(500).send({
+          message: `Error deleting Nursery with ID ${req.params.nurseryId}`,
+        });
+      }
+    } else res.send(data);
+  });
 };
