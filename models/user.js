@@ -38,7 +38,8 @@ User.register = (userId, password, result) => {
   sql.query(
     "UPDATE users " +
     "SET password = ?," +
-    "activated = 1 " +
+    "activated = 1, " +
+    "token = NULL " +
     "WHERE id = ?",
     [password, userId],
     (err, res) => {
@@ -175,15 +176,23 @@ User.findCarersByNurseryId = (nurseryId, result) => {
 };
 
 User.findUserByToken = (token, result) => {
+  console.log("in model");
   sql.query('SELECT * FROM users WHERE token = ? AND activated = 0', token, (err, res) => {
+    console.log("executing query");
+    console.log(token);
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
 
+    console.log(res.length);
     if (res.length) {
+      console.log(res);
       result(null, res);
+      return;
+    } else {
+      result({kind: "not_found"}, null);
       return;
     }
   });

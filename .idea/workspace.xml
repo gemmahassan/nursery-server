@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b09cf6-d7a2-4dc1-9ca0-cd2bdcaca750" name="Default Changelist" comment="workspace">
-      <change afterPath="$PROJECT_DIR$/uploads/1db29f58804341dcab3f8e8b66ad843e" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/40540f785ee9561adb18c7bf26f97bf7" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/612c2fae5ed69da00e77a3426bc42c77" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/68281c5ad50d23654b5ff45f0ebb2678" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/82bbcf609d03cc100f2d805fb8c84863" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/c951368ed3d3bcc430d95c49c7661c19" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/e0b24bf823bafa00e87c2c2e91968ce3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/nursery.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/nursery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/verifySignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/verifySignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +61,19 @@
       <recent name="$PROJECT_DIR$/controllers" />
       <recent name="$PROJECT_DIR$/routes" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -126,7 +131,8 @@
       <workItem from="1620467787431" duration="699000" />
       <workItem from="1620468903227" duration="9431000" />
       <workItem from="1620658874235" duration="5012000" />
-      <workItem from="1620845446720" duration="1499000" />
+      <workItem from="1620845446720" duration="1837000" />
+      <workItem from="1620980374785" duration="1216000" />
     </task>
     <task id="LOCAL-00001" summary="[MP-27] Change Backend to use mySQL instead of MongoDB">
       <created>1609864909220</created>
