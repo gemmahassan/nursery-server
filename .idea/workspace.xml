@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b09cf6-d7a2-4dc1-9ca0-cd2bdcaca750" name="Default Changelist" comment="workspace">
-      <change afterPath="$PROJECT_DIR$/uploads/63500c282d2abaa00eead1851b255479" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/71abee1c180cc2b2f6ad8721e2f08e0d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/e7afd4db1a35002d6bbdc23950daa100" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/42f55ce5163128e797692bd4c1770a78" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/carer.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/carer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/child.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/journal.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/journal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/child.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/child.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/nursery.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/nursery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +55,7 @@
     <property name="jdk.selected.JAVA_MODULE" value="14" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -71,19 +68,6 @@
       <recent name="$PROJECT_DIR$/controllers" />
       <recent name="$PROJECT_DIR$/routes" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -142,7 +126,8 @@
       <workItem from="1620468903227" duration="9431000" />
       <workItem from="1620658874235" duration="5012000" />
       <workItem from="1620845446720" duration="1837000" />
-      <workItem from="1620980374785" duration="7787000" />
+      <workItem from="1620980374785" duration="8379000" />
+      <workItem from="1621085881846" duration="8894000" />
     </task>
     <task id="LOCAL-00001" summary="[MP-27] Change Backend to use mySQL instead of MongoDB">
       <created>1609864909220</created>

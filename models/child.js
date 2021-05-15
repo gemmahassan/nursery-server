@@ -5,7 +5,7 @@ const Child = function (child) {
   this.surname = child.surname;
   this.image = child.image;
   this.nursery_id = child.nursery_id;
-  this.photo_permission = child.photo_permission ? 1 : 0;
+  this.photo_permission = child.photo_permission;
 };
 
 Child.create = (newChild, result) => {

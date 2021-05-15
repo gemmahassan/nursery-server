@@ -14,11 +14,12 @@ exports.addEntry = (req, res) => {
     image = fs.readFileSync(req.file.path);
   }
 
+  console.log("TEXT: ", req.body.text);
   // Create a Journal Entry
   const entry = new Journal({
     type_id: req.body.type_id,
     image: image,
-    text: req.body.text,
+    text:  req.body.text,
     child_id: req.body.child_id,
     user_id: req.body.user_id,
     nursery_id: req.body.nursery_id,

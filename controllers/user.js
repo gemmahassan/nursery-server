@@ -35,21 +35,14 @@ exports.addUser = (req, res) => {
     numbers: true,
   });
 
-  // check if there is an image, if so read the path and store it
-  let image;
-  if (req.file) {
-    image = fs.readFileSync(req.file.path);
-  }
-
   // set up a new user
   const user = new User({
-    first_name: req.body.first_name,
+    first_name: req.body.firstName,
     surname: req.body.surname,
     username: req.body.email,
     token: temporaryToken,
     role: req.body.role,
-    nursery_id: req.body.nursery_id,
-    image: image,
+    nursery_id: req.body.nurseryId,
   });
 
   // call create model
@@ -83,17 +76,14 @@ exports.register = async (req, res) => {
 };
 
 exports.update = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-  }
+  console.log("body: ", req);
 
   const user = new User({
     first_name: req.body.firstName,
     surname: req.body.surname,
   });
+
+  console.log("user: ", user);
 
   User.update(req.params.userId, user, (err, data) => {
     if (err) {

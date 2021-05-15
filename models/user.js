@@ -8,7 +8,6 @@ const User = function (user) {
   this.password = user.password;
   this.nursery_id = user.nursery_id;
   this.token = user.token;
-  this.image = user.image;
   switch (user.role) {
     case "admin":
       this.user_role_id = 500;
@@ -37,7 +36,7 @@ User.create = (newUser, result) => {
 User.register = (userId, password, result) => {
   sql.query(
     "UPDATE users " +
-      "SET password = ?," +
+      "SET password = ?, " +
       "activated = 1, " +
       "token = NULL " +
       "WHERE id = ?",
@@ -61,7 +60,10 @@ User.register = (userId, password, result) => {
 
 User.update = (userId, user, result) => {
   sql.query(
-    "UPDATE users " + "SET first_name = ?," + "surname = ? " + "WHERE id = ?",
+    "UPDATE users " +
+    "SET first_name = ?, " +
+    "surname = ? " +
+    "WHERE id = ?",
     [user.first_name, user.surname, userId],
     (err, res) => {
       if (err) {
@@ -251,7 +253,6 @@ User.login = (password, username, result) => {
       "users.password, " +
       "users.user_role_id, " +
       "users.nursery_id, " +
-      "users.image, " +
       "user_roles.role " +
       "FROM users " +
       "INNER JOIN user_roles " +

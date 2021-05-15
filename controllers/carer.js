@@ -1,13 +1,6 @@
 const Carer = require("../models/carer");
 
 exports.addCarer = (req, res) => {
-  //  Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-  }
-
   const carer = new Carer({
     child_id: req.body.childId,
     user_id: req.body.userId,
