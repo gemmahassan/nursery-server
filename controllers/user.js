@@ -1,34 +1,11 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const passwordGenerator = require("generate-password");
-const fs = require("fs");
 
 const saltRounds = 10;
 
-exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content");
-};
-
-exports.adminDashBoard = (req, res) => {
-  res.status(200).send("Admin Dashboard");
-};
-
-exports.staffDashBoard = (req, res) => {
-  res.status(200).send("Staff Dashboard");
-};
-
-exports.carerDashBoard = (req, res) => {
-  res.status(200).send("Carer Dashboard");
-};
-
+// add a user
 exports.addUser = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-  }
-
   // generate a temporary token
   const temporaryToken = passwordGenerator.generate({
     length: 10,
@@ -41,7 +18,7 @@ exports.addUser = (req, res) => {
     surname: req.body.surname,
     username: req.body.email,
     token: temporaryToken,
-    role: req.body.role,
+    role: req.body.userRole,
     nursery_id: req.body.nurseryId,
   });
 
@@ -55,6 +32,7 @@ exports.addUser = (req, res) => {
   });
 };
 
+// new user sets password
 exports.register = async (req, res) => {
   // encrypt the user's chosen password
   const encryptedPassword = await bcrypt.hash(req.body.password, saltRounds);
@@ -75,16 +53,15 @@ exports.register = async (req, res) => {
   });
 };
 
+// update existing user
 exports.update = (req, res) => {
-  console.log("body: ", req);
-
+  // create user
   const user = new User({
     first_name: req.body.firstName,
     surname: req.body.surname,
   });
 
-  console.log("user: ", user);
-
+  // call model
   User.update(req.params.userId, user, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
@@ -100,6 +77,7 @@ exports.update = (req, res) => {
   });
 };
 
+// find staff for specified nursery
 exports.findStaffByNurseryId = (req, res) => {
   User.findStaffByNurseryId(req.params.nurseryId, (err, data) => {
     if (err) {
@@ -116,6 +94,7 @@ exports.findStaffByNurseryId = (req, res) => {
   });
 };
 
+// find carers for specified nursery
 exports.findCarersByNurseryId = (req, res) => {
   User.findCarersByNurseryId(req.params.nurseryId, (err, data) => {
     if (err) {
@@ -132,6 +111,7 @@ exports.findCarersByNurseryId = (req, res) => {
   });
 };
 
+// find user to match unique token in link
 exports.findUserByToken = (req, res) => {
   User.findUserByToken(req.params.token, (err, data) => {
     if (err) {
@@ -148,6 +128,7 @@ exports.findUserByToken = (req, res) => {
   });
 };
 
+// find children for a specific carer
 exports.findChildren = (req, res) => {
   User.findChildren(req.params.userId, (err, data) => {
     if (err) {
@@ -164,6 +145,7 @@ exports.findChildren = (req, res) => {
   });
 };
 
+// delete user - set timestamp
 exports.delete = (req, res) => {
   User.delete(req.params.userId, (err, data) => {
     if (err) {

@@ -1,6 +1,11 @@
-module.exports = (app) => {
-  const authJwt = require("../middleware/authJwt");
-  const carer = require("../controllers/carer");
+const authJwt = require("../middleware/authJwt");
+const carer = require("../controllers/carer");
 
-  app.post("/carer/add", authJwt.verifyToken, carer.addCarer);
+module.exports = (app) => {
+  // only admin users can add a carer
+  app.post(
+    "/carer/add",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    carer.addCarer
+  );
 };

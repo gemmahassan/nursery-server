@@ -1,5 +1,6 @@
 const sql = require("./db");
 
+// TO DO: Calendar not fully implemented
 const Calendar = function (calendar) {
   this.description = calendar.description;
   this.nursery_id = calendar.nursery_id;

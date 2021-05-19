@@ -3,14 +3,9 @@ const jwt = require("jsonwebtoken");
 const { refreshTokenSecret, secret } = require("../config/auth");
 let { refreshTokens } = require("../config/auth");
 
+// add a new user via nursery signup
 exports.signup = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-  }
-
+  // create new User
   const user = new User({
     username: req.body.email,
     password: req.body.password,
@@ -53,6 +48,7 @@ exports.login = (req, res) => {
           { expiresIn: "60m" }
         );
 
+        // TO DO: refresh token functionality not fully implemented
         const refreshToken = jwt.sign(
           {
             username: user.username,
@@ -85,16 +81,20 @@ exports.login = (req, res) => {
 };
 
 exports.token = (req, res) => {
+  // extract the token from the request
   const { token } = req.body;
 
+  // if no token, unauthorised
   if (!token) {
     return res.sendStatus(401);
   }
 
+  // not fully implemented
   if (!refreshTokens.includes(token)) {
     return res.sendStatus(403);
   }
 
+  // verify token - sign with username and role
   jwt.verify(token, refreshTokenSecret, (err, user) => {
     if (err) {
       return res.sendStatus(403);
@@ -103,9 +103,10 @@ exports.token = (req, res) => {
     const accessToken = jwt.sign(
       { username: user.username, role: user.role },
       accessTokenSecret,
-      { expiresIn: "20m" }
+      { expiresIn: "60m" }
     );
 
+    // return the token
     res.json({
       accessToken,
     });

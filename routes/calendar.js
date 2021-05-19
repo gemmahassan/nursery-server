@@ -1,7 +1,7 @@
-module.exports = (app) => {
-  const authJwt = require("../middleware/authJwt");
-  const calendar = require("../controllers/calendar");
+const authJwt = require("../middleware/authJwt");
+const calendar = require("../controllers/calendar");
 
+module.exports = (app) => {
   app.post(
     "/calendar/add",
     [authJwt.verifyToken, authJwt.isAdmin],

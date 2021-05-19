@@ -1,5 +1,6 @@
-module.exports = (app) => {
-  const journalType = require("../controllers/journal-type");
+const authJwt = require("../middleware/authJwt");
+const journalType = require("../controllers/journal-type");
 
-  app.get("/journal/types", journalType.getAll);
+module.exports = (app) => {
+  app.get("/journal/types", authJwt.verifyToken, journalType.getAll);
 };

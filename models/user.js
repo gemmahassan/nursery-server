@@ -34,6 +34,7 @@ User.create = (newUser, result) => {
 };
 
 User.register = (userId, password, result) => {
+  console.log("in model");
   sql.query(
     "UPDATE users " +
       "SET password = ?, " +
@@ -60,10 +61,7 @@ User.register = (userId, password, result) => {
 
 User.update = (userId, user, result) => {
   sql.query(
-    "UPDATE users " +
-    "SET first_name = ?, " +
-    "surname = ? " +
-    "WHERE id = ?",
+    "UPDATE users " + "SET first_name = ?, " + "surname = ? " + "WHERE id = ?",
     [user.first_name, user.surname, userId],
     (err, res) => {
       if (err) {
@@ -242,6 +240,9 @@ User.findChildren = (userId, result) => {
   );
 };
 
+// gets user and role data
+// matches username by case
+// filters deleted users
 User.login = (password, username, result) => {
   sql.query(
     "SELECT " +

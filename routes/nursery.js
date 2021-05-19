@@ -5,11 +5,20 @@ const authJwt = require("../middleware/authJwt");
 
 module.exports = (app) => {
   app.post("/nurseries/contact", upload.single("image"), nursery.signup);
-  app.get("/nurseries", nursery.getAll);
-  app.get("/nurseries/confirmed", nursery.getAllConfirmedNurseries);
-  app.get("/nurseries/pending", nursery.getAllPendingNurseries);
-  app.get("/nurseries/:nurseryId", nursery.getNurseryById);
-  app.get("/nurseries/:nurseryId/children", nursery.getAllChildren);
+  app.get(
+    "/nurseries/confirmed", nursery.getAllConfirmedNurseries
+  );
+  app.get(
+    "/nurseries/pending",
+    [authJwt.verifyToken, authJwt.isSuperAdmin],
+    nursery.getAllPendingNurseries
+  );
+  app.get("/nurseries/:nurseryId", authJwt.verifyToken, nursery.getNurseryById);
+  app.get(
+    "/nurseries/:nurseryId/children",
+    authJwt.verifyToken,
+    nursery.getAllChildren
+  );
 
   app.put(
     "/nurseries/:nurseryId/approve",

@@ -6,6 +6,7 @@ const Carer = function (carer) {
   this.nursery_id = carer.nursery_id;
 };
 
+// insert a new relationship into carer junction table
 Carer.create = (newCarer, result) => {
   sql.query("INSERT INTO carers SET ?", newCarer, (err, res) => {
     if (err) {

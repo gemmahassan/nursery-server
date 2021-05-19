@@ -1,5 +1,6 @@
 const Calendar = require("../models/calendar");
 
+// TO DO : Calendar not fully implemented
 exports.findByNurseryId = (req, res) => {
   Calendar.findByNurseryId(req.params.nurseryId, (err, data) => {
     if (err) {
@@ -17,16 +18,9 @@ exports.findByNurseryId = (req, res) => {
 };
 
 exports.addEntry = (req, res) => {
-  // only admin and staff users have permission to add a journal entry
+  // only admin users have permission to add a calendar entry
   if (role !== "admin") {
     return res.sendStatus(403);
-  }
-
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
   }
 
   // Create a Journal Entry
@@ -46,16 +40,9 @@ exports.addEntry = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  // only admin and staff users have permission to update a journal entry
+  // only admin users have permission to update a calendar entry
   if (role !== "admin") {
     return res.sendStatus(403);
-  }
-
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
   }
 
   Calendar.update(
@@ -78,7 +65,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  // only admin and staff users have permission to delete a journal entry
+  // only admin users have permission to delete a calendar entry
   if (role !== "admin") {
     return res.sendStatus(403);
   }

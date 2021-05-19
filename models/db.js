@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 const dbConfig = require("../config/db-config");
 
+// database connection
 const connection = mysql.createConnection({
   pool: dbConfig.POOL,
   connectionLimit: dbConfig.CONNECTION_LIMIT,

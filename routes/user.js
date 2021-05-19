@@ -15,12 +15,20 @@ module.exports = (app) => {
     user.addUser
   );
 
-  app.get("/users/staff/:nurseryId", user.findStaffByNurseryId);
-  app.get("/users/carers/:nurseryId", user.findCarersByNurseryId);
-  app.get("/users/:userId/children", user.findChildren);
+  app.get(
+    "/users/staff/:nurseryId",
+    authJwt.verifyToken,
+    user.findStaffByNurseryId
+  );
+  app.get(
+    "/users/carers/:nurseryId",
+    authJwt.verifyToken,
+    user.findCarersByNurseryId
+  );
+  app.get("/users/:userId/children", authJwt.verifyToken, user.findChildren);
 
   app.put(
-    "/users/:userId",
+    "/users/:userId/delete",
     [authJwt.verifyToken, authJwt.isAdmin],
     user.delete
   );
@@ -28,5 +36,5 @@ module.exports = (app) => {
   app.get("/users/:token", user.findUserByToken);
   app.put("/users/:userId", user.register);
 
-  app.put("/users/:userId/edit", user.update);
+  app.put("/users/:userId/edit", authJwt.verifyToken, user.update);
 };

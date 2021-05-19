@@ -1,6 +1,7 @@
 const fs = require("fs");
 const Nursery = require("../models/nursery");
 
+// gets all nurseries confirmed on the system
 exports.getAllConfirmedNurseries = (req, res) => {
   Nursery.getAllConfirmed((err, data) => {
     if (err)
@@ -11,6 +12,7 @@ exports.getAllConfirmedNurseries = (req, res) => {
   });
 };
 
+// gets all nurseries not confirmed on the system
 exports.getAllPendingNurseries = (req, res) => {
   Nursery.getAllPending((err, data) => {
     if (err)
@@ -21,16 +23,7 @@ exports.getAllPendingNurseries = (req, res) => {
   });
 };
 
-exports.getAll = (req, res) => {
-  Nursery.getAll((err, data) => {
-    if (err)
-      res.status(500).send({
-        message: err.message || `Error retrieving nurseries`,
-      });
-    else res.send(data);
-  });
-};
-
+// find specific nursery by nurseryId
 exports.getNurseryById = (req, res) => {
   Nursery.findById(req.params.nurseryId, (err, data) => {
     if (err) {
@@ -47,6 +40,7 @@ exports.getNurseryById = (req, res) => {
   });
 };
 
+// get all children for specified nursery
 exports.getAllChildren = (req, res) => {
   Nursery.getAllChildren(req.params.nurseryId, (err, data) => {
     if (err) {
@@ -63,13 +57,8 @@ exports.getAllChildren = (req, res) => {
   });
 };
 
+// add nursery (via contact form)
 exports.signup = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-  }
   const image = fs.readFileSync(req.file.path);
 
   const nursery = new Nursery({
@@ -89,6 +78,7 @@ exports.signup = (req, res) => {
     longitude: req.body.longitude,
   });
 
+  // call model
   Nursery.create(nursery, (err, data) => {
     if (err)
       res.status(500).send({
@@ -98,6 +88,7 @@ exports.signup = (req, res) => {
   });
 };
 
+// approve nursery application from superadmin dashboard
 exports.approve = (req, res) => {
   Nursery.approve(req.params.nurseryId, (err, data) => {
     if (err) {
@@ -114,6 +105,7 @@ exports.approve = (req, res) => {
   });
 };
 
+// decline nursery application from superadmin dashboard
 exports.decline = (req, res) => {
   Nursery.decline(req.params.nurseryId, (err, data) => {
     if (err) {
@@ -130,6 +122,7 @@ exports.decline = (req, res) => {
   });
 };
 
+// purge all deleted data
 exports.purge = (req, res) => {
   Nursery.purge(req, (err, data) => {
     if (err) {
@@ -146,24 +139,9 @@ exports.purge = (req, res) => {
   });
 };
 
+// deactivate a nursery account
 exports.deactivate = (req, res) => {
   Nursery.deactivate(req.params.nurseryId, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `No entry found with ID ${req.params.nurseryId}`,
-        });
-      } else {
-        res.status(500).send({
-          message: `Error deleting Nursery with ID ${req.params.nurseryId}`,
-        });
-      }
-    } else res.send(data);
-  });
-};
-
-exports.delete = (req, res) => {
-  Nursery.delete(req.params.nurseryId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({

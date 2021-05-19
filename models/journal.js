@@ -9,6 +9,7 @@ const Journal = function (journal) {
   this.nursery_id = journal.nursery_id;
 };
 
+// add a new journal entry
 Journal.create = (newJournal, result) => {
   sql.query("INSERT INTO journal SET ?", newJournal, (err, res) => {
     if (err) {
@@ -21,6 +22,7 @@ Journal.create = (newJournal, result) => {
   });
 };
 
+// update existing journal entry
 Journal.update = (journalId, journal, result) => {
   sql.query(
     "UPDATE journal " +
@@ -55,6 +57,7 @@ Journal.update = (journalId, journal, result) => {
   );
 };
 
+// delete existing journal entry - set timestamp
 Journal.remove = (id, result) => {
   sql.query(
     "UPDATE journal " + "SET deleted = CURRENT_TIMESTAMP() " + "WHERE id = ? ",

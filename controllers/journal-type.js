@@ -1,5 +1,6 @@
 const JournalType = require("../models/journal-type");
 
+// get all journal types
 exports.getAll = (req, res) => {
   JournalType.getAll((err, data) => {
     if (err)

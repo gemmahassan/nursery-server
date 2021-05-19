@@ -184,29 +184,6 @@ Nursery.getAllPending = (result) => {
   );
 };
 
-Nursery.getAll = (result) => {
-  sql.query(
-    "SELECT * FROM nurseries " + "WHERE deleted IS NULL " + "ORDER BY name",
-    (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
-
-      const response = res.map((nursery) => {
-        if (nursery.image) {
-          nursery.image =
-            "data:image/png;base64," +
-            Buffer.from(nursery.image, "binary").toString("base64");
-        }
-        return nursery;
-      });
-      result(null, response);
-    }
-  );
-};
-
 Nursery.findById = (nurseryId, result) => {
   sql.query(
     "SELECT * FROM nurseries WHERE id = ? AND deleted IS NULL",

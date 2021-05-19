@@ -8,6 +8,7 @@ const Child = function (child) {
   this.photo_permission = child.photo_permission;
 };
 
+// insert a new child
 Child.create = (newChild, result) => {
   sql.query("INSERT INTO children SET ?", newChild, (err, res) => {
     if (err) {
@@ -20,6 +21,7 @@ Child.create = (newChild, result) => {
   });
 };
 
+// update existing child
 Child.update = (childId, child, result) => {
   sql.query(
     "UPDATE children " +
@@ -42,6 +44,7 @@ Child.update = (childId, child, result) => {
         return;
       }
 
+      // if no rows updated, return not found result
       if (res.affectedRows == 0) {
         result({ kind: "not_found" }, null);
         return;
@@ -52,6 +55,7 @@ Child.update = (childId, child, result) => {
   );
 };
 
+// find all children linked to specific nursery
 Child.findByNurseryId = (nurseryId, result) => {
   sql.query(
     "SELECT * FROM children " +
@@ -66,8 +70,10 @@ Child.findByNurseryId = (nurseryId, result) => {
         return;
       }
 
+      // add each child returned into new response array and return this to the frontend
       const response = res.map((child) => {
         if (child.image) {
+          // convert image from BLOB so it can be displayed on frontend
           child.image =
             "data:image/png;base64," +
             Buffer.from(child.image, "binary").toString("base64");
@@ -79,7 +85,7 @@ Child.findByNurseryId = (nurseryId, result) => {
     }
   );
 };
-
+// find child by specific ID, filter out deleted children
 Child.findById = (childId, result) => {
   sql.query(
     `SELECT *
@@ -102,6 +108,7 @@ Child.findById = (childId, result) => {
   );
 };
 
+// find children by specific carer ID
 Child.findByCarerId = (carerId, result) => {
   sql.query(
     `SELECT *
@@ -124,6 +131,11 @@ Child.findByCarerId = (carerId, result) => {
   );
 };
 
+// find all journal entries for a specific child
+// join users to get name of staff who added the entry
+// join types to get type of journal entry
+// filter out deleted entries
+// descending order by date
 Child.findJournal = (childId, date, result) => {
   sql.query(
     `SELECT journal.id,
@@ -153,8 +165,10 @@ Child.findJournal = (childId, date, result) => {
         return;
       }
 
+      // store all entries into new response array and return to frontend
       const response = res.map((entry) => {
         if (entry.image) {
+          // convert image from blob to base64 so it can be displayed on frontend
           entry.image =
             "data:image/png;base64," +
             Buffer.from(entry.image, "binary").toString("base64");
@@ -166,6 +180,9 @@ Child.findJournal = (childId, date, result) => {
   );
 };
 
+// delete child by setting deleted timestamp
+// does not actually delete the data
+// performed as a transaction to ensure that all affected tables are updated
 Child.delete = (id, result) => {
   sql.query(
     "START TRANSACTION;" +

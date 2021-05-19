@@ -2,24 +2,17 @@ const fs = require("fs");
 const Journal = require("../models/journal");
 
 exports.addEntry = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-  }
-
+  // check if an image was uploaded
   let image;
   if (req.file) {
     image = fs.readFileSync(req.file.path);
   }
 
-  console.log("TEXT: ", req.body.text);
   // Create a Journal Entry
   const entry = new Journal({
     type_id: req.body.type_id,
     image: image,
-    text:  req.body.text,
+    text: req.body.text,
     child_id: req.body.child_id,
     user_id: req.body.user_id,
     nursery_id: req.body.nursery_id,
@@ -35,14 +28,9 @@ exports.addEntry = (req, res) => {
   });
 };
 
+// update an existing journal entry
 exports.update = (req, res) => {
-  // Validate request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-  }
-
+  // check if an image was uploaded
   let image;
   if (req.file) {
     image = fs.readFileSync(req.file.path);
@@ -57,6 +45,7 @@ exports.update = (req, res) => {
     user_id: req.body.user_id,
   });
 
+  // call model
   Journal.update(req.params.journalId, entry, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
@@ -72,6 +61,7 @@ exports.update = (req, res) => {
   });
 };
 
+// delete journal entry - set timestamp
 exports.delete = (req, res) => {
   Journal.remove(req.params.journalId, (err, data) => {
     if (err) {

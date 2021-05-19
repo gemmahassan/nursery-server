@@ -2,8 +2,12 @@ const jwt = require("jsonwebtoken");
 const { secret } = require("../config/auth");
 
 verifyToken = (req, res, next) => {
+  // extract token from the header passed from frontend
   const token = req.headers["x-access-token"];
 
+  // if token exists, verify it against the stored secret
+  // if it can not be verified or no token provided, send 401 unauthorised error
+  // if it can be verified, save the userId, nurseryId role decoded from the token and pass to controller
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
@@ -27,6 +31,7 @@ verifyToken = (req, res, next) => {
   }
 };
 
+// check superadmin privileges
 isSuperAdmin = (req, res, next) => {
   if (req.role === "superadmin") {
     next();
@@ -38,6 +43,7 @@ isSuperAdmin = (req, res, next) => {
   });
 };
 
+// check admin privileges
 isAdmin = (req, res, next) => {
   if (req.role === "superadmin" || req.role === "admin") {
     next();
@@ -49,6 +55,7 @@ isAdmin = (req, res, next) => {
   });
 };
 
+// check carer privileges
 isCarer = (req, res, next) => {
   if (req.role === "carer") {
     next();
@@ -60,6 +67,7 @@ isCarer = (req, res, next) => {
   });
 };
 
+// check staff privileges
 isStaff = (req, res, next) => {
   if (req.role === "admin" || "staff") {
     next();
