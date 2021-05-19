@@ -89,11 +89,14 @@ Nursery.purge = (req, result) => {
         return;
       }
 
+      console.log("!!!!!!!!!!!RES!!!!!!!!!!!!", res);
+      // add each affected row to the totalAffectedRows array
       let totalAffectedRows = 0;
       res.forEach((el) => {
         totalAffectedRows += el.affectedRows;
       });
 
+      // if none affected, return not found as there was no data to purge
       if (totalAffectedRows === 0) {
         result({ kind: "not_found" }, null);
         return;
