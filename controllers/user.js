@@ -41,7 +41,7 @@ exports.addUser = (req, res) => {
     surname: req.body.surname,
     username: req.body.email,
     token: temporaryToken,
-    role: req.body.role,
+    role: req.body.userRole,
     nursery_id: req.body.nurseryId,
   });
 

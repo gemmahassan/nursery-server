@@ -20,7 +20,7 @@ module.exports = (app) => {
   app.get("/users/:userId/children", user.findChildren);
 
   app.put(
-    "/users/:userId",
+    "/users/:userId/delete",
     [authJwt.verifyToken, authJwt.isAdmin],
     user.delete
   );
